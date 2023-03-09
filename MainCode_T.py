@@ -7,6 +7,7 @@ import mysql.connector
 import talib
 import time
 import math
+import subprocess
  
 from sqlalchemy import create_engine, text
 from Fetch_YF_Functons import *
@@ -14,7 +15,7 @@ from datetime import datetime
 
 
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
-print("pip freeze > requirements.txt")
+subprocess.call([r'Freeze.bat'])
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 
 ticker       =  "ada-usd"  # lower case
