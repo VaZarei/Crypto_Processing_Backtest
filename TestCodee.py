@@ -38,6 +38,9 @@ t= list(a.values())
 """
 
 #print(list(a.values()))
-
+data_backtest_dict = {}
 data = yf.download(tickers= ticker, start= start_Date , end= end_Date, interval= "1mo")
 print(data)
+
+data_backtest_dict["1mo"] = [data]
+print(data_backtest_dict)

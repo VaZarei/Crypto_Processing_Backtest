@@ -20,32 +20,12 @@ mydb = mysql.connector.connect(
 
 )
 
-def count_date_Diff (start_Date, end_Date) :
 
-    """ 
-        This Function count deferent interval between start to end date
-        The output is integer and only Date 
-    """
-    
-   
-    if str(type(end_Date))  == "<class 'datetime.datetime'>" :
-        end_Date = (str(datetime.now())[0:10])
-        print("yess")
 
-    startDate = date(int(start_Date[0:4]) , int(start_Date[5:7]),  int(start_Date[8:10]))
-    endDate = date(int(end_Date[0:4]) , int(end_Date[5:7]),  int(end_Date[8:10]))
-    intervalDate = endDate - startDate  
-    end_Now = end = (str(datetime.now())[0:10])
-    end_wanted = date(int(end_Now[0:4]) , int(end_Now[5:7]),  int(end_Now[8:10]))
-    interval_from_Now = end_wanted - startDate
+## BackTest >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    print("intervalDate      : ", intervalDate.days)
-    print("interval_from_Now : ", interval_from_Now.days)
-   
-   
-    return int(intervalDate.days) , int(interval_from_Now.days)  # count enddate - start date  ,  start Day for find last days
 
-def tryExcept_Offline(strTicker, strStart_Date, strEnd_Date, strInterval) :
+def tryExcept_backtest(strTicker, strStart_Date, strEnd_Date, strInterval) :
      
      
      try:
@@ -73,14 +53,15 @@ def tryExcept_Offline(strTicker, strStart_Date, strEnd_Date, strInterval) :
      
      return data
 
-
-def fetch_DataF(strTicker, strStart_Date, strEnd_Date, Interval) :
+def fetch_Data_backtest(strTicker, strStart_Date, strEnd_Date, Interval) :
 
     """
         This Function make fetch data from yahoo finance according to ticker, start and end date and timeframe(strinterval)
         output : if everything is normal is a data table
         output : if timeframe(strinterval) be incorrecy is "-1"
     """
+
+    data_backtest_dict = {}
     for strInterval in Interval:
 
 
@@ -103,7 +84,7 @@ def fetch_DataF(strTicker, strStart_Date, strEnd_Date, Interval) :
                 print("End_Date          : ", strEnd_Date)
                 print("interval          : ", strInterval ,"\n\n")
                 
-                data=tryExcept_Offline(strTicker, strStart_Date, strEnd_Date, strInterval)
+                data_backtest_dict[strInterval] = [tryExcept_backtest(strTicker, strStart_Date, strEnd_Date, strInterval)]
                 strStart_Date = sd  
                 strEnd_Date   = ed
                 
@@ -130,7 +111,7 @@ def fetch_DataF(strTicker, strStart_Date, strEnd_Date, Interval) :
                         print("End_Date          : ", strEnd_Date)
                         print("interval          : ", strInterval ,"\n\n")
 
-                        data=tryExcept_Offline(strTicker, strStart_Date, strEnd_Date, strInterval)
+                        data_backtest_dict[strInterval] = [tryExcept_backtest(strTicker, strStart_Date, strEnd_Date, strInterval)]
                         strStart_Date = sd  
                         strEnd_Date   = ed
                         
@@ -144,13 +125,13 @@ def fetch_DataF(strTicker, strStart_Date, strEnd_Date, Interval) :
                         print("End_Date          : ", strEnd_Date)
                         print("interval          : ", strInterval ,"\n\n")
                         
-                        data=tryExcept_Offline(strTicker, strStart_Date, strEnd_Date, strInterval)
+                        data_backtest_dict[strInterval] = [tryExcept_backtest(strTicker, strStart_Date, strEnd_Date, strInterval)]
                         strStart_Date = sd  
                         strEnd_Date   = ed 
                         
                         
 
-        elif (strInterval == "2m") or (strInterval == "5m") or  (strInterval == "15m") or (strInterval == "30m") :
+        elif (strInterval == "2m") or (strInterval == "5m") or  (strInterval == "15m") or (strInterval == "30m") or (strInterval == "90m") :
             
             if interval_from_Now < 60 :
                 
@@ -158,7 +139,7 @@ def fetch_DataF(strTicker, strStart_Date, strEnd_Date, Interval) :
                 print("End_Date          : ", strEnd_Date)
                 print("interval          : ", strInterval ,"\n\n")
 
-                data=tryExcept_Offline(strTicker, strStart_Date, strEnd_Date, strInterval)
+                data_backtest_dict[strInterval] = [tryExcept_backtest(strTicker, strStart_Date, strEnd_Date, strInterval)]
                 strStart_Date = sd  
                 strEnd_Date   = ed  
 
@@ -171,7 +152,7 @@ def fetch_DataF(strTicker, strStart_Date, strEnd_Date, Interval) :
                 print("End_Date          : ", strEnd_Date)
                 print("interval          : ", strInterval ,"\n\n")
 
-                data=tryExcept_Offline(strTicker, strStart_Date, strEnd_Date, strInterval)
+                data_backtest_dict[strInterval] = [tryExcept_backtest(strTicker, strStart_Date, strEnd_Date, strInterval)]
                 strStart_Date = sd  
                 strEnd_Date   = ed  
                 
@@ -185,7 +166,7 @@ def fetch_DataF(strTicker, strStart_Date, strEnd_Date, Interval) :
                 print("End_Date          : ", strEnd_Date)
                 print("interval          : ", strInterval ,"\n\n")
 
-                data=tryExcept_Offline(strTicker, strStart_Date, strEnd_Date, strInterval)
+                data_backtest_dict[strInterval] = [tryExcept_backtest(strTicker, strStart_Date, strEnd_Date, strInterval)]
                 strStart_Date = sd  
                 strEnd_Date   = ed  
                 
@@ -199,7 +180,7 @@ def fetch_DataF(strTicker, strStart_Date, strEnd_Date, Interval) :
                 print("End_Date          : ", strEnd_Date)
                 print("interval          : ", strInterval ,"\n\n")
 
-                data=tryExcept_Offline(strTicker, strStart_Date, strEnd_Date, strInterval)
+                data_backtest_dict[strInterval] = [tryExcept_backtest(strTicker, strStart_Date, strEnd_Date, strInterval)]
                 strStart_Date = sd  
                 strEnd_Date   = ed 
                 
@@ -212,7 +193,7 @@ def fetch_DataF(strTicker, strStart_Date, strEnd_Date, Interval) :
                 print("End_Date          : ", strEnd_Date)
                 print("interval          : ", strInterval ,"\n\n")
 
-                data=tryExcept_Offline(strTicker, strStart_Date, strEnd_Date, strInterval)
+                data_backtest_dict[strInterval] = [tryExcept_backtest(strTicker, strStart_Date, strEnd_Date, strInterval)]
                 strStart_Date = sd  
                 strEnd_Date   = ed 
 
@@ -223,7 +204,81 @@ def fetch_DataF(strTicker, strStart_Date, strEnd_Date, Interval) :
         
 
 
-    return data 
+    return data_backtest_dict
+
+def data_process_backtest (intervalA ,data_online : dict, ticker) :
+    
+    data_process_dict = {}
+
+    for i in intervalA :
+         
+        
+        table_name="{ticker}_{interval}_P".format(ticker= ticker.replace("-","") ,interval= i)
+        mycursor = mydb.cursor()
+        query = """
+                create table IF NOT EXISTS {table_name}({Date} varchar(50));
+                                                         
+                
+                                                        
+
+                  
+                """.format(table_name = table_name, Date = data_online[i].columns[0] )
+        print("Query >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> : \n", query)
+        #val = ["2024-01-01" , "254789"]
+        mycursor.execute(query)
+        mydb.commit()
+
+        table_name="{ticker}_'P_'{interval}".format(ticker= ticker.replace("-","") ,interval= i)
+        data_process_dict["sum"]  = [i, sum(data_online[i]["Open"])]
+        data_process_dict["RSI"]  = [i, talib.RSI(data_online[i]["Open"])]
+         
+        print("-----------------------------------------------")
+        
+
+    #print(data_process_dict.keys())
+    #print(data_process_dict)
+
+    return data_process_dict
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+## Online Fire >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+def count_date_Diff (start_Date, end_Date) :
+
+    """ 
+        This Function count deferent interval between start to end date
+        The output is integer and only Date 
+    """
+    
+   
+    if str(type(end_Date))  == "<class 'datetime.datetime'>" :
+        end_Date = (str(datetime.now())[0:10])
+        print("yess")
+
+    startDate = date(int(start_Date[0:4]) , int(start_Date[5:7]),  int(start_Date[8:10]))
+    endDate = date(int(end_Date[0:4]) , int(end_Date[5:7]),  int(end_Date[8:10]))
+    intervalDate = endDate - startDate  
+    end_Now = end = (str(datetime.now())[0:10])
+    end_wanted = date(int(end_Now[0:4]) , int(end_Now[5:7]),  int(end_Now[8:10]))
+    interval_from_Now = end_wanted - startDate
+
+    print("intervalDate      : ", intervalDate.days)
+    print("interval_from_Now : ", interval_from_Now.days)
+   
+   
+    return int(intervalDate.days) , int(interval_from_Now.days)  # count enddate - start date  ,  start Day for find last days
 
 
 def fetch_DataF_O(strTicker, strStart_Date, strEnd_Date, strInterval) :
@@ -231,7 +286,7 @@ def fetch_DataF_O(strTicker, strStart_Date, strEnd_Date, strInterval) :
     """
         This Function make fetch data base online ask ,  from yahoo finance according to ticker, start and end date and timeframe(strinterval)
         output : if everything is normal is a data table
-        output : if timeframe(strinterval) be incorrecy is "-1"
+        output : if timeframe(strinterval) be incorrect is "-1"
     """
     
     checkin = False
@@ -511,6 +566,8 @@ def updateData(intervalA, ticker, start_Date) :
                                 
 
         return data_online
+
+
 
 
 def data_processF (intervalA ,data_online : dict, ticker) :
