@@ -8,11 +8,14 @@ cffi==1.15.1
 charset-normalizer==3.0.1
 colorama==0.4.6
 comm==0.1.2
+contourpy==1.0.7
 cryptography==39.0.2
+cycler==0.11.0
 debugpy==1.6.6
 decorator==5.1.1
 exceptiongroup==1.1.0
 executing==1.2.0
+fonttools==4.39.0
 frozendict==2.3.5
 greenlet==2.0.2
 html5lib==1.1
@@ -23,7 +26,9 @@ ipython==8.11.0
 jedi==0.18.2
 jupyter_client==8.0.3
 jupyter_core==5.2.0
+kiwisolver==1.4.4
 lxml==4.9.2
+matplotlib==3.7.1
 matplotlib-inline==0.1.6
 multitasking==0.0.11
 mysql-connector-python==8.0.32
@@ -33,6 +38,7 @@ packaging==23.0
 pandas==1.5.3
 parso==0.8.3
 pickleshare==0.7.5
+Pillow==9.4.0
 platformdirs==3.1.0
 pluggy==1.0.0
 prompt-toolkit==3.0.38
@@ -41,6 +47,7 @@ psutil==5.9.4
 pure-eval==0.2.2
 pycparser==2.21
 Pygments==2.14.0
+pyparsing==3.0.9
 pytest==7.2.2
 python-dateutil==2.8.2
 pytz==2022.7.1
@@ -51,7 +58,7 @@ six==1.16.0
 soupsieve==2.4
 SQLAlchemy==2.0.5.post1
 stack-data==0.6.2
-TA-Lib @ file:///E:\Python\API\CryptoCurrency\botTrader\Crypto_MySQL_2\Tools\TA_Lib-0.4.24-cp310-cp310-win_amd64.whl
+TA-Lib @ file:///F:\python\Crypto_Processing_Backtest\Tools\TA_Lib-0.4.24-cp310-cp310-win_amd64.whl
 tomli==2.0.1
 tornado==6.2
 traitlets==5.9.0

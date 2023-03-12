@@ -1,6 +1,7 @@
 
 
 from zeroKey import *
+from PlotP import *
 import sqlalchemy
 import pandas as pd
 import mysql.connector
@@ -13,18 +14,27 @@ from sqlalchemy import create_engine, text
 from Fetch_YF_Functons import *
 from datetime import datetime
 
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+import numpy as np
+import matplotlib.dates as mdates
+from matplotlib import dates
+#import datetime
+
+
+
 
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 subprocess.call([r'Freeze.bat'])
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 
 ticker       =  "ada-usd"  # lower case
-start_Date   =  "2015-01-02"  #%Y/%m/%d 
+start_Date   =  "2023-02-02"  #%Y/%m/%d 
 
 #end_Date     =  "2023-02-10"
 end_Date     =  datetime.now()
-intervalA     =  ["90m"]  # ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"] 
-intervalA    =  ["1m", "2m", "5m", "15m", "30m", "60m", "90m",  "1d", "5d", "1wk", "1mo", "3mo"] 
+intervalA     =  ["15m"]  # ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"] 
+#intervalA    =  ["1m", "2m", "5m", "15m", "30m", "60m", "90m",  "1d", "5d", "1wk", "1mo", "3mo"] 
 intMaxLen = 14
 
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------    
@@ -49,7 +59,7 @@ mydb = mysql.connector.connect(
 
 if backTestInput == "yes" :
        
-        
+        i_90m = {}
         data_backtest_dict = fetch_Data_backtest(strTicker=ticker, strStart_Date=start_Date, strEnd_Date=end_Date, Interval = intervalA)
         #i_60m = []
 
@@ -60,37 +70,32 @@ if backTestInput == "yes" :
                 globals()[f"i_{interval}"] = data_backtest_dict[f"{interval}"][0]
 
                 globals()[f"i_{interval}"]['RSI'] = talib.RSI((globals()[f"i_{interval}"]['Open']), 2)
-                globals()[f"i_{interval}"]['RSI2'] = talib.RSI((globals()[f"i_{interval}"]['Open']), 2)
-                globals()[f"i_{interval}"]['RSI3'] = talib.RSI((globals()[f"i_{interval}"]['Open']), 2)
-                globals()[f"i_{interval}"]['RSI4'] = talib.RSI((globals()[f"i_{interval}"]['Open']), 2)
-                globals()[f"i_{interval}"]['RSI5'] = talib.RSI((globals()[f"i_{interval}"]['Open']), 2)
-                globals()[f"i_{interval}"]['RSI6'] = talib.RSI((globals()[f"i_{interval}"]['Open']), 2)
-                globals()[f"i_{interval}"]['RSI7'] = talib.RSI((globals()[f"i_{interval}"]['Open']), 2)
-                globals()[f"i_{interval}"]['RSI8'] = talib.RSI((globals()[f"i_{interval}"]['Open']), 2)
-                globals()[f"i_{interval}"]['RSI9'] = talib.RSI((globals()[f"i_{interval}"]['Open']), 2)
-                globals()[f"i_{interval}"]['RSI10'] = talib.RSI((globals()[f"i_{interval}"]['Open']), 2)
-                globals()[f"i_{interval}"]['RSI11'] = talib.RSI((globals()[f"i_{interval}"]['Open']), 2)
-                globals()[f"i_{interval}"]['RSI12'] = talib.RSI((globals()[f"i_{interval}"]['Open']), 2)
-                globals()[f"i_{interval}"]['RSI13'] = talib.RSI((globals()[f"i_{interval}"]['Open']), 2)
-                globals()[f"i_{interval}"]['RSI14'] = talib.RSI((globals()[f"i_{interval}"]['Open']), 2)
-                globals()[f"i_{interval}"]['RSI15'] = talib.RSI((globals()[f"i_{interval}"]['Open']), 2)
-                globals()[f"i_{interval}"]['RSI16'] = talib.RSI((globals()[f"i_{interval}"]['Open']), 2)
-
-
-    
+                
 
         
 
         
         
+  
+        
+        
+        fig, ax = plt.subplots(figsize=(10, 8)) 
+        formatter = dates.DateFormatter('%Y-%m-%d %S:%M:%H')
+        ax.xaxis.set_major_formatter(formatter)
+        plt.gcf().autofmt_xdate(rotation=90)
 
-        print((i_90m))
-        #print(i_60m)
+        ax.xaxis.set_major_locator(dates.DayLocator(interval=2))
 
-        #i_60m['RSI'] = talib.RSI(i_60m['Open'], 2)
+        
+        plt.plot(globals()[f"i_{interval}"]['Open'] )
+        plt.plot(globals()[f"i_{interval}"]['Close'] )
+        plt.xticks(rotation=90)
+        
+        plt.show()
+        
+      
 
-        #print(i_60m)
-
+      
 
 
         
