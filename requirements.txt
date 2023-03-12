@@ -58,7 +58,7 @@ six==1.16.0
 soupsieve==2.4
 SQLAlchemy==2.0.5.post1
 stack-data==0.6.2
-TA-Lib @ file:///F:\python\Crypto_Processing_Backtest\Tools\TA_Lib-0.4.24-cp310-cp310-win_amd64.whl
+TA-Lib @ file:///E:\Python\API\CryptoCurrency\botTrader\Crypto_MySQL_2\Tools\TA_Lib-0.4.24-cp310-cp310-win_amd64.whl
 tomli==2.0.1
 tornado==6.2
 traitlets==5.9.0

@@ -29,7 +29,7 @@ subprocess.call([r'Freeze.bat'])
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 
 ticker       =  "ada-usd"  # lower case
-start_Date   =  "2023-02-02"  #%Y/%m/%d 
+start_Date   =  "2023-03-02"  #%Y/%m/%d 
 
 #end_Date     =  "2023-02-10"
 end_Date     =  datetime.now()
@@ -59,7 +59,7 @@ mydb = mysql.connector.connect(
 
 if backTestInput == "yes" :
        
-        i_90m = {}
+        i_15m = {}
         data_backtest_dict = fetch_Data_backtest(strTicker=ticker, strStart_Date=start_Date, strEnd_Date=end_Date, Interval = intervalA)
         #i_60m = []
 
@@ -68,17 +68,22 @@ if backTestInput == "yes" :
                 
                 globals()[f"i_{interval}"] = []
                 globals()[f"i_{interval}"] = data_backtest_dict[f"{interval}"][0]
-
                 globals()[f"i_{interval}"]['RSI'] = talib.RSI((globals()[f"i_{interval}"]['Open']), 2)
                 
 
         
 
         
-        
-  
-        
-        
+        #print(i_15m.index)
+        #print(i_15m['Open'])
+
+        df = i_15m
+
+        df = df.reset_index()
+
+        #print(df.Datetime)
+        #print(df.Open)        
+        """
         fig, ax = plt.subplots(figsize=(10, 8)) 
         formatter = dates.DateFormatter('%Y-%m-%d %S:%M:%H')
         ax.xaxis.set_major_formatter(formatter)
@@ -87,20 +92,61 @@ if backTestInput == "yes" :
         ax.xaxis.set_major_locator(dates.DayLocator(interval=2))
 
         
-        plt.plot(globals()[f"i_{interval}"]['Open'] )
-        plt.plot(globals()[f"i_{interval}"]['Close'] )
+        plt.plot(df.Datetime , df.Open )
+        plt.plot(df.Datetime )
         plt.xticks(rotation=90)
         
         plt.show()
         
-      
+        """
+        """
+        # plot price
+        plt.figure(figsize=(15,5))
+        plt.plot(df.Datetime, df.Open)
+        plt.title('Price chart (Adj Close)')
+        plt.show()
 
-      
 
+        # plot correspondingRSI values and significant levels
+        plt.figure(figsize=(15,5))
+        plt.title('RSI chart')
+        plt.plot(df.Datetime, df['RSI'])
 
+        plt.axhline(0, linestyle='--', alpha=0.1)
+        plt.axhline(20, linestyle='--', alpha=0.5)
+        plt.axhline(30, linestyle='--')
+
+        plt.axhline(70, linestyle='--')
+        plt.axhline(80, linestyle='--', alpha=0.5)
+        plt.axhline(100, linestyle='--', alpha=0.1)
+        plt.show()
+
+        """
+
+        #
         
+        x = df.Datetime
+        y1 = df.Open
+        y2 = df.RSI
         
+        fig, axs = plt.subplots(2 ,  sharex=True, sharey=True)
+        
+        axs[0].plot(x, y1)
+        axs[0].set_title('Price')
+      
+        axs[0].set_ylim(ymin=0, ymax=0.6)
+  
+        plt.scatter(x.iloc[200], y1.iloc[200], marker="o", s=10, color="r", alpha=0.9)
+        
+
+
+        axs[1].plot(x, y2, 'tab:green')
+        axs[1].set_title('RSI')
      
+
+        plt.show()
+
+
 
 
 

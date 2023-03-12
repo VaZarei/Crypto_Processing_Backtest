@@ -3,7 +3,7 @@ import numpy as np
 
 def plot_RSI(df, window):
     diff = df.Close.diff(periods=1).values
-    xdate = [x.date() for x in df.index]
+    xdate = [x.date() for x in df.Datetime]
     RSI = []
     for i in range(window+1, len(xdate)):
         neg = 0
