@@ -1,7 +1,7 @@
 
 
 from zeroKey import *
-from PlotP import *
+
 import sqlalchemy
 import pandas as pd
 import mysql.connector
@@ -19,7 +19,7 @@ import matplotlib as mpl
 import numpy as np
 import matplotlib.dates as mdates
 from matplotlib import dates
-import mplfinance as mpf
+
 
 #import datetime
 
@@ -70,7 +70,8 @@ if backTestInput == "yes" :
                 
                 globals()[f"i_{interval}"] = []
                 globals()[f"i_{interval}"] = data_backtest_dict[f"{interval}"][0]
-                globals()[f"i_{interval}"]['RSI'] = talib.RSI((globals()[f"i_{interval}"]['Open']), 2)
+                globals()[f"i_{interval}"]['RSI'] = talib.RSI((globals()[f"i_{interval}"]['Close']), 7)
+                globals()[f"i_{interval}"]['EMA'] = talib.EMA((globals()[f"i_{interval}"]['Close']), 5)
                 
 
         
@@ -79,12 +80,35 @@ if backTestInput == "yes" :
 
         df = pd.DataFrame(i_1d)
         df = df.reset_index()
-        #df = df.drop(columns=['Volume'])
+        print(df.shape)
+        hisp={}
+        hisr={}
+        for i in range (len(df)) : 
+                for j in range(i) :
+                                j=i-j
+                                
+                       
+                                if df.iloc[j]['RSI'] < df.iloc[i]['RSI']:
+                                        if df.iloc[j]['Close'] > df.iloc[i]['Close']:
+
+                                                hisp[i].append("1")
+                                                hisr[i].append("2")
+
+                                        
+                                
+                                
+                              
+                                #print(df.iloc[i]['RSI'])
         
-        print(df)
+        #print("hisp:", hisp.values())
+        #print("hisr:", hisr.values())
+
+        
+        
         
         x = df.Date
-        y1=(df.Open) 
+        y1=(df.Close) 
+        y3=(df.EMA)
         y2=(df.RSI)       
         
         fig, axs = plt.subplots(2 ,  sharex=True, sharey=False)
@@ -92,20 +116,37 @@ if backTestInput == "yes" :
 
 
 
-        axs[0].plot(x, y1)
-        axs[0].scatter(x.iloc[10], y1.iloc[10])
+        axs[0].plot(x, y1, x, y3)
         axs[0].set_ylabel('Price')
+        axs[0].grid()
+
+        for i in (hisp):
+                print("i :", i)
+                print("hisp[i] :", hisp[i])
+        
+        """
+        axs[0].scatter(x.iloc[10], y1.iloc[10])
        
        
 
 
         axs[1].plot(x, y2, 'tab:green')
         axs[1].set_ylabel('RSI')
-        fig.subplots_adjust(hspace=0.1)
+        axs[1].grid()
+
+        # fill area above 70 and below 30
+        axs[1].fill_between(x, np.ones(len(x))*30, color="blue", alpha=0.1)
+        axs[1].fill_between(x, np.ones(len(x))*70, np.ones(len(x))*100, color="red", alpha=0.1)
         
+        axs[1].plot(x, np.ones(len(x))*30, color="blue", linestyle="dotted")
+        axs[1].plot(x, np.ones(len(x))*70, color="red", linestyle="dotted")
+        
+        fig.subplots_adjust(hspace=0.1)
+
+      
         plt.show()
 
-
+        """
 
 
 
