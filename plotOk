@@ -1,0 +1,57 @@
+ #
+        
+        x = df.Datetime
+        y1 = df.Open
+        y2 = df.RSI
+        
+        fig, axs = plt.subplots(2 ,  sharex=True, sharey=True)
+        plt.grid()
+
+
+
+
+        axs[0].plot(x, y1)
+        axs[0].set_title('Price')
+        axs[0].set_adjustable(adjustable='datalim', share= True)
+        axs[0].grid()
+  
+       
+
+        axs[1].plot(x, y2, 'tab:green')
+        axs[1].set_title('RSI')
+
+        plt.plot(df.Datetime, df['RSI'])
+
+        plt.axhline(0, linestyle='--', alpha=0.1)
+        plt.axhline(20, linestyle='--', alpha=0.5)
+        plt.axhline(30, linestyle='--')
+
+        plt.axhline(70, linestyle='--')
+        plt.axhline(80, linestyle='--', alpha=0.5)
+        plt.axhline(100, linestyle='--', alpha=0.1)
+       
+
+        fig.subplots_adjust(hspace=0.1)
+        plt.scatter(x.iloc[200], y1.iloc[200], marker="o", s=10, color="r", alpha=0.9)
+     
+
+        plt.show()
+
+
+
+
+
+
+
+
+
+        roc_plot = mpf.make_addplot(y2, panel=2, ylabel='rsi', ylim=[-20, 130])
+        mpf.plot(df ,type='candle',style='binance', mav=(3,6,9), addplot=roc_plot, title="QQQ Daily Price", volume=True)
+        #mpf.plot(df, type='line',  style='yahoo', addplot=roc_plot, title="QQQ Daily Price", volume=True)
+
+        
+        
+
+
+
+

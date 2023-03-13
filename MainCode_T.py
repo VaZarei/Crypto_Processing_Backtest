@@ -19,6 +19,8 @@ import matplotlib as mpl
 import numpy as np
 import matplotlib.dates as mdates
 from matplotlib import dates
+import mplfinance as mpf
+
 #import datetime
 
 
@@ -29,11 +31,11 @@ subprocess.call([r'Freeze.bat'])
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 
 ticker       =  "ada-usd"  # lower case
-start_Date   =  "2023-03-02"  #%Y/%m/%d 
+start_Date   =  "2023-01-02"  #%Y/%m/%d 
 
 #end_Date     =  "2023-02-10"
 end_Date     =  datetime.now()
-intervalA     =  ["15m"]  # ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"] 
+intervalA     =  ["1d"]  # ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"] 
 #intervalA    =  ["1m", "2m", "5m", "15m", "30m", "60m", "90m",  "1d", "5d", "1wk", "1mo", "3mo"] 
 intMaxLen = 14
 
@@ -59,7 +61,7 @@ mydb = mysql.connector.connect(
 
 if backTestInput == "yes" :
        
-        i_15m = {}
+        i_1d = {}
         data_backtest_dict = fetch_Data_backtest(strTicker=ticker, strStart_Date=start_Date, strEnd_Date=end_Date, Interval = intervalA)
         #i_60m = []
 
@@ -74,76 +76,33 @@ if backTestInput == "yes" :
         
 
         
-        #print(i_15m.index)
-        #print(i_15m['Open'])
 
-        df = i_15m
-
+        df = pd.DataFrame(i_1d)
         df = df.reset_index()
-
-        #print(df.Datetime)
-        #print(df.Open)        
-        """
-        fig, ax = plt.subplots(figsize=(10, 8)) 
-        formatter = dates.DateFormatter('%Y-%m-%d %S:%M:%H')
-        ax.xaxis.set_major_formatter(formatter)
-        plt.gcf().autofmt_xdate(rotation=90)
-
-        ax.xaxis.set_major_locator(dates.DayLocator(interval=2))
-
+        #df = df.drop(columns=['Volume'])
         
-        plt.plot(df.Datetime , df.Open )
-        plt.plot(df.Datetime )
-        plt.xticks(rotation=90)
+        print(df)
         
-        plt.show()
+        x = df.Date
+        y1=(df.Open) 
+        y2=(df.RSI)       
         
-        """
-        """
-        # plot price
-        plt.figure(figsize=(15,5))
-        plt.plot(df.Datetime, df.Open)
-        plt.title('Price chart (Adj Close)')
-        plt.show()
-
-
-        # plot correspondingRSI values and significant levels
-        plt.figure(figsize=(15,5))
-        plt.title('RSI chart')
-        plt.plot(df.Datetime, df['RSI'])
-
-        plt.axhline(0, linestyle='--', alpha=0.1)
-        plt.axhline(20, linestyle='--', alpha=0.5)
-        plt.axhline(30, linestyle='--')
-
-        plt.axhline(70, linestyle='--')
-        plt.axhline(80, linestyle='--', alpha=0.5)
-        plt.axhline(100, linestyle='--', alpha=0.1)
-        plt.show()
-
-        """
-
-        #
+        fig, axs = plt.subplots(2 ,  sharex=True, sharey=False)
         
-        x = df.Datetime
-        y1 = df.Open
-        y2 = df.RSI
-        
-        fig, axs = plt.subplots(2 ,  sharex=True, sharey=True)
-        
+
+
+
         axs[0].plot(x, y1)
-        axs[0].set_title('Price')
-      
-        axs[0].set_ylim(ymin=0, ymax=0.6)
-  
-        plt.scatter(x.iloc[200], y1.iloc[200], marker="o", s=10, color="r", alpha=0.9)
-        
+        axs[0].scatter(x.iloc[10], y1.iloc[10])
+        axs[0].set_ylabel('Price')
+       
+       
 
 
         axs[1].plot(x, y2, 'tab:green')
-        axs[1].set_title('RSI')
-     
-
+        axs[1].set_ylabel('RSI')
+        fig.subplots_adjust(hspace=0.1)
+        
         plt.show()
 
 
@@ -153,11 +112,7 @@ if backTestInput == "yes" :
 
 
 
-
-
-
-
-
+       
 
 # ---------------------------------------------- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>     
 
