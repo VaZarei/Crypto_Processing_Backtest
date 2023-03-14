@@ -70,7 +70,7 @@ if backTestInput == "yes" :
                 
                 globals()[f"i_{interval}"] = []
                 globals()[f"i_{interval}"] = data_backtest_dict[f"{interval}"][0]
-                globals()[f"i_{interval}"]['RSI'] = talib.RSI((globals()[f"i_{interval}"]['Close']), 7)
+                globals()[f"i_{interval}"]['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 7) , 2)
                 globals()[f"i_{interval}"]['EMA'] = talib.EMA((globals()[f"i_{interval}"]['Close']), 5)
                 
 
@@ -83,31 +83,38 @@ if backTestInput == "yes" :
         print(df.shape)
         hisp={}
         hisr={}
+        
+       
         for i in range (len(df)) : 
+                hisp[i]=[]
                 for j in range(i) :
                                 j=i-j
-                                
-                       
-                                if df.iloc[j]['RSI'] < df.iloc[i]['RSI']:
+                                        
+                                if df.iloc[j]['RSI'] < df.iloc[i]['RSI']:      
                                         if df.iloc[j]['Close'] > df.iloc[i]['Close']:
-
-                                                hisp[i].append("1")
-                                                hisr[i].append("2")
+                                                hisp[i].append({"i" : i, "j": j,  "priceNow" : round(df.iloc[i]['Close'], 2), "rsiNow" : df.iloc[i]['RSI'], "priceFind" : round(df.iloc[j]['Close'], 2), "rsiFind" : df.iloc[j]['RSI']   })
+                                              
+                                                
 
                                         
                                 
                                 
-                              
-                                #print(df.iloc[i]['RSI'])
-        
-        #print("hisp:", hisp.values())
-        #print("hisr:", hisr.values())
+  
 
         
         
-        
+ 
+        for i in range(len(hisp)) :
+               
+                if hisp[i]==[] :
+                        hisp.pop(i)
+       
+
+        #print(list(hisp.keys())[0])
+        print("hisp: \n\n" , hisp)
+
         x = df.Date
-        y1=(df.Close) 
+        y1=round((df.Close), 2)
         y3=(df.EMA)
         y2=(df.RSI)       
         
@@ -120,13 +127,17 @@ if backTestInput == "yes" :
         axs[0].set_ylabel('Price')
         axs[0].grid()
 
-        for i in (hisp):
-                print("i :", i)
-                print("hisp[i] :", hisp[i])
         
-        """
-        axs[0].scatter(x.iloc[10], y1.iloc[10])
-       
+        #for i in hisp.keys():
+        #        print(i)
+        #        axs[0].scatter(x.iloc[42], y1.iloc[42])
+        #print("hisp(42) :", hisp[42]['j'])
+        
+        axs[0].scatter(x.iloc[42], y1.iloc[42] ,color = '#88c999')
+        axs[0].scatter(x.iloc[38], y1.iloc[38])
+
+        axs[1].scatter(x.iloc[42], y2.iloc[42] ,color = '#88c999')
+        axs[1].scatter(x.iloc[38], y2.iloc[38] )
        
 
 
@@ -146,7 +157,7 @@ if backTestInput == "yes" :
       
         plt.show()
 
-        """
+        
 
 
 
