@@ -30,6 +30,7 @@ kiwisolver==1.4.4
 lxml==4.9.2
 matplotlib==3.7.1
 matplotlib-inline==0.1.6
+mplcursors==0.5.2
 mplfinance==0.12.9b7
 multitasking==0.0.11
 mysql-connector-python==8.0.32

@@ -19,7 +19,7 @@ import matplotlib as mpl
 import numpy as np
 import matplotlib.dates as mdates
 from matplotlib import dates
-
+import mplcursors
 
 #import datetime
 
@@ -31,7 +31,7 @@ subprocess.call([r'Freeze.bat'])
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 
 ticker       =  "ada-usd"  # lower case
-start_Date   =  "2023-01-02"  #%Y/%m/%d 
+start_Date   =  "2022-08-02"  #%Y/%m/%d 
 
 #end_Date     =  "2023-02-10"
 end_Date     =  datetime.now()
@@ -89,11 +89,15 @@ if backTestInput == "yes" :
                 hisp[i]=[]
                 for j in range(i) :
                                 j=i-j
-                                        
-                                if df.iloc[j]['RSI'] < df.iloc[i]['RSI']:      
-                                        if df.iloc[j]['Close'] > df.iloc[i]['Close']:
+                                """        
+                                if  df.iloc[i]['RSI'] > df.iloc[j]['RSI']:  
+                                        if df.iloc[i]['Close'] < df.iloc[j]['Close']:    
                                                 hisp[i].append({"i" : i, "j": j,  "priceNow" : round(df.iloc[i]['Close'], 2), "rsiNow" : df.iloc[i]['RSI'], "priceFind" : round(df.iloc[j]['Close'], 2), "rsiFind" : df.iloc[j]['RSI']   })
-                                              
+                                                break
+                                """
+                                if  df.iloc[i]['RSI'] <20 :
+                                        hisp[i].append({"i" : i, "j": j,  "priceNow" : round(df.iloc[i]['Close'], 2), "rsiNow" : df.iloc[i]['RSI'], "priceFind" : round(df.iloc[j]['Close'], 2), "rsiFind" : df.iloc[j]['RSI']   })
+                                                
                                                 
 
                                         
@@ -120,9 +124,7 @@ if backTestInput == "yes" :
         
         fig, axs = plt.subplots(2 ,  sharex=True, sharey=False)
         
-
-
-
+      
         axs[0].plot(x, y1, x, y3)
         axs[0].set_ylabel('Price')
         axs[0].grid()
@@ -133,11 +135,14 @@ if backTestInput == "yes" :
         #        axs[0].scatter(x.iloc[42], y1.iloc[42])
         #print("hisp(42) :", hisp[42]['j'])
         
-        axs[0].scatter(x.iloc[42], y1.iloc[42] ,color = '#88c999')
-        axs[0].scatter(x.iloc[38], y1.iloc[38])
+        for i in hisp.keys():
+               print(i)
+               axs[0].scatter(x.iloc[i], y1.iloc[i], color = 'green')
+               #axs[0].scatter(x.iloc[38], y1.iloc[38], marker="*" )
+        
 
-        axs[1].scatter(x.iloc[42], y2.iloc[42] ,color = '#88c999')
-        axs[1].scatter(x.iloc[38], y2.iloc[38] )
+               axs[1].scatter(x.iloc[i], y2.iloc[i],  color = '#88c999')
+               #axs[1].scatter(x.iloc[38], y2.iloc[38] , marker="*")
        
 
 
@@ -154,7 +159,7 @@ if backTestInput == "yes" :
         
         fig.subplots_adjust(hspace=0.1)
 
-      
+        mplcursors.cursor(hover=True)
         plt.show()
 
         

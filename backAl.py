@@ -101,7 +101,8 @@ hisp = {42: [{'i': 42, 'j': 38, 'priceNow': 0.36, 'rsiNow': 36.83, 'priceFind': 
 for i in hisp :
     
     #print("\n", hisp[i][0])
-    print(hisp[70])
+    #print(hisp[70][i])
+    pass
 
 
-#print(hisp[42])
+print((hisp[70])[0]['j'])
