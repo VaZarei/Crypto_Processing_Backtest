@@ -31,7 +31,7 @@ subprocess.call([r'Freeze.bat'])
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 
 ticker       =  "ada-usd"  # lower case
-start_Date   =  "2022-08-02"  #%Y/%m/%d 
+start_Date   =  "2022-01-02"  #%Y/%m/%d 
 
 #end_Date     =  "2023-02-10"
 end_Date     =  datetime.now()
@@ -70,7 +70,7 @@ if backTestInput == "yes" :
                 
                 globals()[f"i_{interval}"] = []
                 globals()[f"i_{interval}"] = data_backtest_dict[f"{interval}"][0]
-                globals()[f"i_{interval}"]['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 7) , 2)
+                globals()[f"i_{interval}"]['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 7) , 3)
                 globals()[f"i_{interval}"]['EMA'] = talib.EMA((globals()[f"i_{interval}"]['Close']), 5)
                 
 
@@ -82,21 +82,40 @@ if backTestInput == "yes" :
         df = df.reset_index()
         print(df.shape)
         hisp={}
-        hisr={}
+        flagCorrectRSI = True
         
        
         for i in range (len(df)) : 
                 hisp[i]=[]
-                for j in range(i) :
-                                j=i-j
-                                """        
-                                if  df.iloc[i]['RSI'] > df.iloc[j]['RSI']:  
-                                        if df.iloc[i]['Close'] < df.iloc[j]['Close']:    
-                                                hisp[i].append({"i" : i, "j": j,  "priceNow" : round(df.iloc[i]['Close'], 2), "rsiNow" : df.iloc[i]['RSI'], "priceFind" : round(df.iloc[j]['Close'], 2), "rsiFind" : df.iloc[j]['RSI']   })
-                                                break
-                                """
-                                if  df.iloc[i]['RSI'] <20 :
-                                        hisp[i].append({"i" : i, "j": j,  "priceNow" : round(df.iloc[i]['Close'], 2), "rsiNow" : df.iloc[i]['RSI'], "priceFind" : round(df.iloc[j]['Close'], 2), "rsiFind" : df.iloc[j]['RSI']   })
+                for j in range(i, 0 , -1) :
+                                #print("\ni:", i, "j:",j)
+                                
+                                
+                                
+
+                                bRule1 = (i-j < 30)
+                                bRule2 = df.iloc[i]['RSI']    <  31 
+                                bRule3 = df.iloc[j]['RSI']    <  df.iloc[i]['RSI']
+                                bRule4 = df.iloc[j]['Close']  >  df.iloc[i]['Close']
+                                #bRule5 = flagCorrectRSI
+
+                                
+
+                                if bRule1 and bRule2 and bRule3 and bRule4  :
+                                                        print("I:", i, "J:",j)
+                                                        for m in range (j, i) :
+                                                             
+                                                             if df.iloc[m]['Close'] < df.iloc[i]['Close'] :
+                                                                 flagCorrectRSI = False
+                                                                 break
+                                                             
+
+                                                        if flagCorrectRSI :
+                                                             hisp[i].append({"i" : i, "j": j,  "priceNow" : round(df.iloc[i]['Close'], 3), "rsiNow" : df.iloc[i]['RSI'], "priceFind" : round(df.iloc[j]['Close'], 3), "rsiFind" : df.iloc[j]['RSI']   })
+                                                             break
+                                
+                                #if  df.iloc[i]['RSI'] <20 :
+                                        #hisp[i].append({"i" : i, "j": j,  "priceNow" : round(df.iloc[i]['Close'], 2), "rsiNow" : df.iloc[i]['RSI'], "priceFind" : round(df.iloc[j]['Close'], 2), "rsiFind" : df.iloc[j]['RSI']   })
                                                 
                                                 
 
@@ -115,7 +134,7 @@ if backTestInput == "yes" :
        
 
         #print(list(hisp.keys())[0])
-        print("hisp: \n\n" , hisp)
+        #print("hisp: \n\n" , hisp)
 
         x = df.Date
         y1=round((df.Close), 2)
@@ -130,19 +149,17 @@ if backTestInput == "yes" :
         axs[0].grid()
 
         
-        #for i in hisp.keys():
-        #        print(i)
-        #        axs[0].scatter(x.iloc[42], y1.iloc[42])
-        #print("hisp(42) :", hisp[42]['j'])
-        
+        for i in hisp.keys():
+                print(hisp[i])
+
         for i in hisp.keys():
                print(i)
                axs[0].scatter(x.iloc[i], y1.iloc[i], color = 'green')
-               #axs[0].scatter(x.iloc[38], y1.iloc[38], marker="*" )
+               axs[0].scatter(x.iloc[int((hisp[i])[0]['j'])], y1.iloc[int((hisp[i])[0]['j'])], marker="*", color = 'red' )
         
 
                axs[1].scatter(x.iloc[i], y2.iloc[i],  color = '#88c999')
-               #axs[1].scatter(x.iloc[38], y2.iloc[38] , marker="*")
+               axs[1].scatter(x.iloc[int((hisp[i])[0]['j'])], y2.iloc[int((hisp[i])[0]['j'])], marker="*", color = 'red' )
        
 
 
@@ -160,11 +177,10 @@ if backTestInput == "yes" :
         fig.subplots_adjust(hspace=0.1)
 
         mplcursors.cursor(hover=True)
-        plt.show()
+       
 
         
-
-
+        plt.show()
 
 
 
