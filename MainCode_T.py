@@ -32,10 +32,10 @@ subprocess.call([r'Freeze.bat'])
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 
 ticker       =  "ada-usd"  # lower case
-start_Date   =  "2021-01-02"  #%Y/%m/%d 
+start_Date   =  "2023-02-15"  #%Y/%m/%d 
 
-end_Date     =  "2023-06-01"
-#end_Date     =  datetime.now()
+#end_Date     =  "2023-06-01"
+end_Date     =  datetime.now()
 intervalA     =  ["1d"]  # ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"] 
 #intervalA    =  ["1m", "2m", "5m", "15m", "30m", "60m", "90m",  "1d", "5d", "1wk", "1mo", "3mo"] 
 intMaxLen = 14
@@ -81,12 +81,17 @@ if backTestInput == "yes" :
 
         df = pd.DataFrame(i_1d)
         df = df.reset_index()
+        #print(df)
+        print(df.columns[0])
+        if df.columns[0] == "Datetime" :
+                df.rename(columns={'Datetime' : 'Date'} , inplace= True)
         print(df.shape)
+        print(df.columns[0])
         hisp = B_rsi(df)
         
         
  
-      
+        
 
         #print(list(hisp.keys())[0])
         #print("hisp: \n\n" , hisp)
@@ -161,3 +166,6 @@ if onlineFire == "yes" :
         print("\n\nSleeping for 4 minutes and fetch online again ...!! ")
         time.sleep(240)
         print("\n\nWake up and fetch Online !!!\n\n")
+
+
+        

@@ -9,7 +9,7 @@ def B_rsi(df) :
                 hisp[i]=[]
                 for j in range(i, 0 , -1) :
                                 flagCorrectRSI = True
-                                print("\ni:", i, "j:",j)
+                                #print("\ni:", i, "j:",j)
                                 
 
                                 bRule1 = (i-j < 30)
@@ -22,7 +22,7 @@ def B_rsi(df) :
                                 if bRule1 and bRule2 and  bRule3 and bRule4  :
                                                         #print("I:", i, "J:",j)
                                                         for m in range (j, i, 1) :
-                                                             print("Im:", i, "Jm:",j , "m:", m)
+                                                             #print("Im:", i, "Jm:",j , "m:", m)
                                                              
                                                              if df.iloc[m]['Close'] < df.iloc[i]['Close'] :
                                                                  flagCorrectRSI = False

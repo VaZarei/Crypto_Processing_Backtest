@@ -1,0 +1,23 @@
+
+(.venv) F:\python\Crypto_Processing_Backtest>pip freeze  1>requirements.txt 
+---------- > End_Date = datetime.now 
+
+
+
+
+
+Start_Date :  2023-03-02 
+End_Date   :  2023-03-18 
+
+
+intervalDate      :  16
+interval_from_Now :  16
+
+Start_Date        :  2023-03-02
+End_Date          :  2023-03-18
+interval          :  15m 
+
+
+[*********************100%***********************]  1 of 1 completed
+RangeIndex(start=0, stop=0, step=1)
+(0, 1)
