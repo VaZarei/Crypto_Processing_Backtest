@@ -12,6 +12,7 @@ import subprocess
  
 from sqlalchemy import create_engine, text
 from Fetch_YF_Functons import *
+from backAl import *
 from datetime import datetime
 
 import matplotlib.pyplot as plt
@@ -31,10 +32,10 @@ subprocess.call([r'Freeze.bat'])
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 
 ticker       =  "ada-usd"  # lower case
-start_Date   =  "2022-01-02"  #%Y/%m/%d 
+start_Date   =  "2021-01-02"  #%Y/%m/%d 
 
-#end_Date     =  "2023-02-10"
-end_Date     =  datetime.now()
+end_Date     =  "2023-06-01"
+#end_Date     =  datetime.now()
 intervalA     =  ["1d"]  # ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"] 
 #intervalA    =  ["1m", "2m", "5m", "15m", "30m", "60m", "90m",  "1d", "5d", "1wk", "1mo", "3mo"] 
 intMaxLen = 14
@@ -81,57 +82,11 @@ if backTestInput == "yes" :
         df = pd.DataFrame(i_1d)
         df = df.reset_index()
         print(df.shape)
-        hisp={}
-        flagCorrectRSI = True
-        
-       
-        for i in range (len(df)) : 
-                hisp[i]=[]
-                for j in range(i, 0 , -1) :
-                                #print("\ni:", i, "j:",j)
-                                
-                                
-                                
-
-                                bRule1 = (i-j < 30)
-                                bRule2 = df.iloc[i]['RSI']    <  31 
-                                bRule3 = df.iloc[j]['RSI']    <  df.iloc[i]['RSI']
-                                bRule4 = df.iloc[j]['Close']  >  df.iloc[i]['Close']
-                                #bRule5 = flagCorrectRSI
-
-                                
-
-                                if bRule1 and bRule2 and bRule3 and bRule4  :
-                                                        print("I:", i, "J:",j)
-                                                        for m in range (j, i) :
-                                                             
-                                                             if df.iloc[m]['Close'] < df.iloc[i]['Close'] :
-                                                                 flagCorrectRSI = False
-                                                                 break
-                                                             
-
-                                                        if flagCorrectRSI :
-                                                             hisp[i].append({"i" : i, "j": j,  "priceNow" : round(df.iloc[i]['Close'], 3), "rsiNow" : df.iloc[i]['RSI'], "priceFind" : round(df.iloc[j]['Close'], 3), "rsiFind" : df.iloc[j]['RSI']   })
-                                                             break
-                                
-                                #if  df.iloc[i]['RSI'] <20 :
-                                        #hisp[i].append({"i" : i, "j": j,  "priceNow" : round(df.iloc[i]['Close'], 2), "rsiNow" : df.iloc[i]['RSI'], "priceFind" : round(df.iloc[j]['Close'], 2), "rsiFind" : df.iloc[j]['RSI']   })
-                                                
-                                                
-
-                                        
-                                
-                                
-  
-
+        hisp = B_rsi(df)
         
         
  
-        for i in range(len(hisp)) :
-               
-                if hisp[i]==[] :
-                        hisp.pop(i)
-       
+      
 
         #print(list(hisp.keys())[0])
         #print("hisp: \n\n" , hisp)
