@@ -32,14 +32,14 @@ subprocess.call([r'Freeze.bat'])
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 
 ticker       =  "ada-usd"  # lower case
-start_Date   =  "2023-02-15"  #%Y/%m/%d 
+start_Date   =  "2023-03-10"  #%Y/%m/%d 
 
-#end_Date     =  "2023-06-01"
+#end_Date     =  "2023-01-01"
 end_Date     =  datetime.now()
-intervalA     =  ["1d"]  # ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"] 
+intervalA     =  ["60m", "1d"]  # ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"] 
 #intervalA    =  ["1m", "2m", "5m", "15m", "30m", "60m", "90m",  "1d", "5d", "1wk", "1mo", "3mo"] 
 intMaxLen = 14
-
+rsi_period = 7
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------    
 backTestInput = "yes"  # " no"
 onlineFire    = "no"
@@ -62,64 +62,58 @@ mydb = mysql.connector.connect(
 
 if backTestInput == "yes" :
        
-        i_1d = {}
+    
         data_backtest_dict = fetch_Data_backtest(strTicker=ticker, strStart_Date=start_Date, strEnd_Date=end_Date, Interval = intervalA)
-        #i_60m = []
 
-        for interval in intervalA :
+      
 
-                
-                globals()[f"i_{interval}"] = []
-                globals()[f"i_{interval}"] = data_backtest_dict[f"{interval}"][0]
-                globals()[f"i_{interval}"]['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 7) , 3)
-                globals()[f"i_{interval}"]['EMA'] = talib.EMA((globals()[f"i_{interval}"]['Close']), 5)
-                
+        for index , interval in enumerate(intervalA) :
+          
+                globals()[f"i_{interval}"]        = data_backtest_dict[f"{interval}"][0]
+                globals()[f"i_{interval}"]['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 12) , 3)
+                globals()[f"i_{interval}"]['EMA'] = talib.EMA((globals()[f"i_{interval}"]['Close']), 14)
+                globals()[f"i_{interval}"]['SMA'] = talib.EMA((globals()[f"i_{interval}"]['Close']), 7)
 
+                globals()[f"df_{interval}"] = pd.DataFrame(globals()[f"i_{interval}"])
+                globals()[f"df_{interval}"] = globals()[f"df_{interval}"].reset_index()
+    
+                if globals()[f"df_{interval}"].columns[0] == "Datetime" :
+                        globals()[f"df_{interval}"].rename(columns={'Datetime' : 'Date'} , inplace= True)
+
+
+
+
+                globals()[f"hisp_{interval}"] = B_rsi(globals()[f"df_{interval}"])
+
+     
         
 
+        x = globals()[f"df_{interval}"].Date
+        y1=round((globals()[f"df_{interval}"].Close), 2)
         
-
-        df = pd.DataFrame(i_1d)
-        df = df.reset_index()
-        #print(df)
-        print(df.columns[0])
-        if df.columns[0] == "Datetime" :
-                df.rename(columns={'Datetime' : 'Date'} , inplace= True)
-        print(df.shape)
-        print(df.columns[0])
-        hisp = B_rsi(df)
-        
-        
- 
-        
-
-        #print(list(hisp.keys())[0])
-        #print("hisp: \n\n" , hisp)
-
-        x = df.Date
-        y1=round((df.Close), 2)
-        y3=(df.EMA)
-        y2=(df.RSI)       
+        y2=(globals()[f"df_{interval}"].RSI)
+        y3=(globals()[f"df_{interval}"].EMA)
+        y4=(globals()[f"df_{interval}"].SMA)       
         
         fig, axs = plt.subplots(2 ,  sharex=True, sharey=False)
         
       
-        axs[0].plot(x, y1, x, y3)
+        axs[0].plot(x, y1, x, y3,  x,y4)
         axs[0].set_ylabel('Price')
         axs[0].grid()
 
         
-        for i in hisp.keys():
-                print(hisp[i])
+        for i in globals()[f"hisp_{interval}"].keys():
+                print(globals()[f"hisp_{interval}"][i])
 
-        for i in hisp.keys():
+        for i in globals()[f"hisp_{interval}"].keys():
                print(i)
                axs[0].scatter(x.iloc[i], y1.iloc[i], color = 'green')
-               axs[0].scatter(x.iloc[int((hisp[i])[0]['j'])], y1.iloc[int((hisp[i])[0]['j'])], marker="*", color = 'red' )
+               axs[0].scatter(x.iloc[int((globals()[f"hisp_{interval}"][i])[0]['j'])], y1.iloc[int((globals()[f"hisp_{interval}"][i])[0]['j'])], marker="*", color = 'red' )
         
 
                axs[1].scatter(x.iloc[i], y2.iloc[i],  color = '#88c999')
-               axs[1].scatter(x.iloc[int((hisp[i])[0]['j'])], y2.iloc[int((hisp[i])[0]['j'])], marker="*", color = 'red' )
+               axs[1].scatter(x.iloc[int((globals()[f"hisp_{interval}"][i])[0]['j'])], y2.iloc[int((globals()[f"hisp_{interval}"][i])[0]['j'])], marker="*", color = 'red' )
        
 
 
@@ -127,6 +121,7 @@ if backTestInput == "yes" :
         axs[1].set_ylabel('RSI')
         axs[1].grid()
 
+        
         # fill area above 70 and below 30
         axs[1].fill_between(x, np.ones(len(x))*30, color="blue", alpha=0.1)
         axs[1].fill_between(x, np.ones(len(x))*70, np.ones(len(x))*100, color="red", alpha=0.1)
@@ -142,7 +137,8 @@ if backTestInput == "yes" :
         
         plt.show()
 
-
+        print(data_backtest_dict)
+        #print("data_backtest_dict[f][0]\n" , data_backtest_dict[f"{interval}"][0])
 
 
        
