@@ -18,6 +18,9 @@ from Fetch_YF_Functons import *
 from backAl import *
 from datetime import datetime
 
+from openpyxl import Workbook
+from openpyxl.styles import Alignment
+
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
@@ -35,7 +38,7 @@ subprocess.call([r'Freeze.bat'])
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 
 ticker       =  "ada-usd"  # lower case
-start_Date   =  "2023-03-25"  #%Y/%m/%d 
+start_Date   =  "2023-03-01"  #%Y/%m/%d 
 
 #end_Date     =  "2023-01-01"
 end_Date     =  datetime.now()
@@ -72,16 +75,24 @@ if backTestInput == "yes" :
 
         for index , interval in enumerate(intervalA) :
                 
+               
+                
                 globals()[f"i_{interval}"]        = data_backtest_dict[f"{interval}"][0]
-                globals()[f"i_{interval}"]['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 12) , 3)
-                globals()[f"i_{interval}"]['EMA'] = talib.EMA((globals()[f"i_{interval}"]['Close']), 14)
-                globals()[f"i_{interval}"]['SMA'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 7)
-                
                 df = globals()[f"i_{interval}"]
+                df['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 12) , 3)
                 
-                df['Close - sma'] = 'nan'
+                df['EMA'] = talib.EMA((globals()[f"i_{interval}"]['Close']), 14)
+                df['SMA'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 7)
                 
+                
+                
+                df['Close - sma'] = 'nan' 
+                df['transAction'] = ''
+                df['PriceAction'] = ''
+
                 distanceF(globals()[f"i_{interval}"]['Close'], globals()[f"i_{interval}"]['EMA'], df)
+                
+                
 
                 
 
@@ -91,8 +102,11 @@ if backTestInput == "yes" :
                 
                 
                 
+                traDisF(df)
 
-                df.to_excel('pandas_to_excel.xlsx', sheet_name='new_sheet_name')
+                
+
+                df.to_excel(f'i_{interval}.xlsx', sheet_name=(f'i_{interval}'))
 
 
                 globals()[f"df_{interval}"] = pd.DataFrame(globals()[f"i_{interval}"])
@@ -125,24 +139,29 @@ if backTestInput == "yes" :
         fig, axs = plt.subplots(2 ,  sharex=True, sharey=False)
         
       
-        axs[0].plot(x, y1, color = '#88c100')
+        axs[0].plot(x, y1, color = '#4D4646')
         axs[0].plot(x, y3, x,y4)
         axs[0].set_ylabel('Price')
         axs[0].grid()
 
         
-        for i in globals()[f"hisp_{interval}"].keys():
-                print(globals()[f"hisp_{interval}"][i])
+    
+        for i in range(len(df)):
+               
+               if df['transAction'][i] == "Buy" :
+                       axs[0].scatter(x.iloc[i], y1.iloc[i], color  = 'green')
+                       axs[1].scatter(x.iloc[i], y2.iloc[i],  color = 'green')
 
-        for i in globals()[f"hisp_{interval}"].keys():
-               print(i)
-               axs[0].scatter(x.iloc[i], y1.iloc[i], color = 'green')
-               axs[0].scatter(x.iloc[int((globals()[f"hisp_{interval}"][i])[0]['j'])], y1.iloc[int((globals()[f"hisp_{interval}"][i])[0]['j'])], marker="*", color = 'red' )
-        
+               if df['transAction'][i] == "Sell" :
+                       axs[0].scatter(x.iloc[i], y1.iloc[i], color  = 'red')
+                       axs[1].scatter(x.iloc[i], y2.iloc[i],  color = 'red')
+                       
+               
+               
+               
 
-               axs[1].scatter(x.iloc[i], y2.iloc[i],  color = '#88c999')
-               axs[1].scatter(x.iloc[int((globals()[f"hisp_{interval}"][i])[0]['j'])], y2.iloc[int((globals()[f"hisp_{interval}"][i])[0]['j'])], marker="*", color = 'red' )
-       
+
+
 
 
         axs[1].plot(x, y2, 'tab:green')
