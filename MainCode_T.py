@@ -1,14 +1,17 @@
 
 
 from zeroKey import *
+from backDisAlgo import *
 
 import sqlalchemy
 import pandas as pd
+import numpy as np
 import mysql.connector
 import talib
 import time
-import math
+import openpyxl
 import subprocess
+import math
  
 from sqlalchemy import create_engine, text
 from Fetch_YF_Functons import *
@@ -32,11 +35,11 @@ subprocess.call([r'Freeze.bat'])
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 
 ticker       =  "ada-usd"  # lower case
-start_Date   =  "2023-03-01"  #%Y/%m/%d 
+start_Date   =  "2023-03-25"  #%Y/%m/%d 
 
 #end_Date     =  "2023-01-01"
 end_Date     =  datetime.now()
-intervalA     =  ["1h"]  # ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"] 
+intervalA     =  ["60m"]  # ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"] 
 #intervalA    =  ["1m", "2m", "5m", "15m", "30m", "60m", "90m",  "1d", "5d", "1wk", "1mo", "3mo"] 
 intMaxLen = 14
 rsi_period = 7
@@ -68,11 +71,29 @@ if backTestInput == "yes" :
       
 
         for index , interval in enumerate(intervalA) :
-          
+                
                 globals()[f"i_{interval}"]        = data_backtest_dict[f"{interval}"][0]
-                globals()[f"i_{interval}"]['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 12) , 4)
+                globals()[f"i_{interval}"]['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 12) , 3)
                 globals()[f"i_{interval}"]['EMA'] = talib.EMA((globals()[f"i_{interval}"]['Close']), 14)
-                globals()[f"i_{interval}"]['SMA'] = talib.EMA((globals()[f"i_{interval}"]['Close']), 7)
+                globals()[f"i_{interval}"]['SMA'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 7)
+                
+                df = globals()[f"i_{interval}"]
+                
+                df['Close - sma'] = 'nan'
+                
+                distanceF(globals()[f"i_{interval}"]['Close'], globals()[f"i_{interval}"]['EMA'], df)
+
+                
+
+                ser1 = globals()[f"i_{interval}"]['Close']
+                ser2 = globals()[f"i_{interval}"]['SMA']
+                
+                
+                
+                
+
+                df.to_excel('pandas_to_excel.xlsx', sheet_name='new_sheet_name')
+
 
                 globals()[f"df_{interval}"] = pd.DataFrame(globals()[f"i_{interval}"])
                 globals()[f"df_{interval}"] = globals()[f"df_{interval}"].reset_index()
@@ -82,14 +103,20 @@ if backTestInput == "yes" :
 
 
 
+                 
+
+
+
 
                 globals()[f"hisp_{interval}"] = B_rsi(globals()[f"df_{interval}"])
+
+                
 
      
         
 
         x = globals()[f"df_{interval}"].Date
-        y1=round((globals()[f"df_{interval}"].Close), 8)
+        y1=round((globals()[f"df_{interval}"].Close), 6)
         
         y2=(globals()[f"df_{interval}"].RSI)
         y3=(globals()[f"df_{interval}"].EMA)
@@ -98,8 +125,8 @@ if backTestInput == "yes" :
         fig, axs = plt.subplots(2 ,  sharex=True, sharey=False)
         
       
-        axs[0].plot(x, y1 , color = 'black')
-        axs[0].plot( x, y3,  x,y4)
+        axs[0].plot(x, y1, color = '#88c100')
+        axs[0].plot(x, y3, x,y4)
         axs[0].set_ylabel('Price')
         axs[0].grid()
 
@@ -118,7 +145,7 @@ if backTestInput == "yes" :
        
 
 
-        axs[1].plot(x, y2, 'tab:brown')
+        axs[1].plot(x, y2, 'tab:green')
         axs[1].set_ylabel('RSI')
         axs[1].grid()
 
@@ -135,10 +162,10 @@ if backTestInput == "yes" :
         mplcursors.cursor(hover=True)
        
 
-        
+        print("data_backtest_dict :  :   :  :   :   :  : \n", data_backtest_dict)
         plt.show()
 
-        #print(data_backtest_dict)
+        
         #print("data_backtest_dict[f][0]\n" , data_backtest_dict[f"{interval}"][0])
 
 
