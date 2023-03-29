@@ -85,7 +85,7 @@ print(sheet.title)
 
 
 
-#"""
+"""
 from openpyxl import Workbook
 from openpyxl.styles import Alignment
 
@@ -93,9 +93,17 @@ book = Workbook()
 print("Book: ", book)
 sheet = book.active
 
-i_60m.freeze_panes = 'B2'
+sheet.freeze_panes = 'B2'
 
 print("sheet: ", sheet)
 
 book.save('freezing.xlsx')
-#"""
+"""
+
+
+a= 100
+b= 151
+
+c= a // b
+
+print("c : ", c)

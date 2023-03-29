@@ -46,6 +46,11 @@ intervalA     =  ["60m"]  # ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h",
 #intervalA    =  ["1m", "2m", "5m", "15m", "30m", "60m", "90m",  "1d", "5d", "1wk", "1mo", "3mo"] 
 intMaxLen = 14
 rsi_period = 7
+
+
+intMoney = 1000
+floatFee = 0 #0.005
+
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------    
 backTestInput = "yes"  # " no"
 onlineFire    = "no"
@@ -89,6 +94,11 @@ if backTestInput == "yes" :
                 df['Close - sma'] = 'nan' 
                 df['transAction'] = ''
                 df['PriceAction'] = ''
+                df['Money'] = ''
+                df['Quantity'] = ''
+                df['CostBenefit'] = ''
+                
+
 
                 distanceF(globals()[f"i_{interval}"]['Close'], globals()[f"i_{interval}"]['EMA'], df)
                 
@@ -103,6 +113,7 @@ if backTestInput == "yes" :
                 
                 
                 traDisF(df)
+                costF(df, intMoney, floatFee)
 
                 
 
