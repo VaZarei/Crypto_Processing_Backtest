@@ -1,15 +1,18 @@
 import numpy as np
+import pandas as pd
+
 
 def distanceF(ser1, ser2, df) :
         
-        ser3 = df['Close - sma']
+        ser3 = ser1.copy()
         for t in range(len(ser1)):
-                        
+                        ser3.iloc[t] = 'nan'
                         if not(np.isnan(ser2.iloc[t])) :
 
 
                                 percent = (ser1.iloc[t] - ser2.iloc[t])/ser1.iloc[t] * 100
                                 ser3.iloc[t] = round(percent, 3)
+        return  ser3
                                 
                         
 
@@ -28,7 +31,7 @@ def traDisF(df) :
                 
                 
                 
-                bRule1 = float(df['Close - sma'][i]) < -3.0
+                bRule1 = float(df['dEMA'][i]) < -3.0
                 bRule2 = df['RSI'][i] < 35
                 bRule3 = df['Close'][i] > df['Close'][i-1]
 
@@ -58,7 +61,7 @@ def traDisF(df) :
                         sRule2 = ((max(costSnap)-costSnap[-1]) > 3.0)
                         sRule3 =  df['RSI'][i] > 35
 
-                        sRule4 = float(df['Close - sma'][i]) > 3.0
+                        sRule4 = float(df['dEMA'][i]) > 3.0
 
 
 

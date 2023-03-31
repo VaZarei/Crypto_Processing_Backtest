@@ -38,7 +38,7 @@ subprocess.call([r'Freeze.bat'])
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 
 ticker       =  "ada-usd"  # lower case
-start_Date   =  "2023-03-01"  #%Y/%m/%d 
+start_Date   =  "2023-03-1"  #%Y/%m/%d 
 
 end_Date     =  "2023-03-18"
 #end_Date     =  datetime.now()
@@ -81,9 +81,18 @@ if backTestInput == "yes" :
         for index , interval in enumerate(intervalA) :
                 
                 globals()[f"i_{interval}"] = data_backtest_dict[f"{interval}"][0]
-                df = globals()[f"i_{interval}"]
+                df = data_backtest_dict[f"{interval}"][0]
+                
+                df.drop(columns=['Open', 'High', 'Low', 'Adj Close', 'Volume'], axis=1 , inplace=True)
+                
+                print("-------------------------------------------------- :  \n", df)
+                df['RSI']         = ''
+                df['EMA']         = ''
+                df['dEMA']        = '' 
+                df['SMA']         = ''
+                #df['SMA']         = ''
                
-                df['Close - sma'] = 'nan' 
+               
                 df['transAction'] = ''
                 df['PriceAction'] = ''
                 df['Money']       = ''
@@ -96,8 +105,7 @@ if backTestInput == "yes" :
                 df['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 12) , 3)   
                 df['EMA'] = talib.EMA((globals()[f"i_{interval}"]['Close']), 30)
                 df['SMA'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 14)
-
-                distanceF(globals()[f"i_{interval}"]['Close'], globals()[f"i_{interval}"]['EMA'], df)
+                df['dEMA'] = distanceF(globals()[f"i_{interval}"]['Close'], globals()[f"i_{interval}"]['EMA'], df)
                 
                 
 
