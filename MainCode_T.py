@@ -40,8 +40,8 @@ subprocess.call([r'Freeze.bat'])
 ticker       =  "ada-usd"  # lower case
 start_Date   =  "2023-03-01"  #%Y/%m/%d 
 
-#end_Date     =  "2023-01-01"
-end_Date     =  datetime.now()
+end_Date     =  "2023-03-18"
+#end_Date     =  datetime.now()
 intervalA     =  ["60m"]  # ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"] 
 #intervalA    =  ["1m", "2m", "5m", "15m", "30m", "60m", "90m",  "1d", "5d", "1wk", "1mo", "3mo"] 
 intMaxLen = 14
@@ -49,7 +49,7 @@ rsi_period = 7
 
 
 intMoney = 1000
-floatFee = 0 #0.005
+floatFee = 0.005
 
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------    
 backTestInput = "yes"  # " no"
@@ -80,25 +80,22 @@ if backTestInput == "yes" :
 
         for index , interval in enumerate(intervalA) :
                 
-               
-                
-                globals()[f"i_{interval}"]        = data_backtest_dict[f"{interval}"][0]
+                globals()[f"i_{interval}"] = data_backtest_dict[f"{interval}"][0]
                 df = globals()[f"i_{interval}"]
-                df['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 12) , 3)
-                
-                df['EMA'] = talib.EMA((globals()[f"i_{interval}"]['Close']), 14)
-                df['SMA'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 7)
-                
-                
-                
+               
                 df['Close - sma'] = 'nan' 
                 df['transAction'] = ''
                 df['PriceAction'] = ''
-                df['Money'] = ''
-                df['Quantity'] = ''
-                df['CostBenefit'] = ''
-                
+                df['Money']       = ''
+                df['Quantity']    = ''
+                df['snapCost']    = ''
+                df['FinallyCostBenefit'] = ''
+        
 
+                
+                df['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 12) , 3)   
+                df['EMA'] = talib.EMA((globals()[f"i_{interval}"]['Close']), 30)
+                df['SMA'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 14)
 
                 distanceF(globals()[f"i_{interval}"]['Close'], globals()[f"i_{interval}"]['EMA'], df)
                 

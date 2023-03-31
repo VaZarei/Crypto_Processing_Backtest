@@ -102,8 +102,8 @@ book.save('freezing.xlsx')
 
 
 a= 100
-b= 151
+b= 24
 
-c= a // b
+c= a / b
 
 print("c : ", c)
