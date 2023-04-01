@@ -38,10 +38,10 @@ subprocess.call([r'Freeze.bat'])
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 
 ticker       =  "ada-usd"  # lower case
-start_Date   =  "2023-02-01"  #%Y/%m/%d 
+start_Date   =  "2023-02-15"  #%Y/%m/%d 
 
-end_Date     =  "2023-03-13"
-end_Date     =  datetime.now()
+end_Date     =  "2023-03-22"
+#end_Date     =  datetime.now()
 intervalA     =  ["60m"]  # ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"] 
 #intervalA    =  ["1m", "2m", "5m", "15m", "30m", "60m", "90m",  "1d", "5d", "1wk", "1mo", "3mo"] 
 intMaxLen = 14
@@ -103,8 +103,8 @@ if backTestInput == "yes" :
 
                 
                 df['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 12) , 3)   
-                df['EMA'] = talib.EMA((globals()[f"i_{interval}"]['Close']), 30)
-                df['SMA'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 14)
+                df['EMA'] = talib.EMA((globals()[f"i_{interval}"]['Close']), 50)
+                df['SMA'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 100)
                 df['dEMA'] = distanceF(globals()[f"i_{interval}"]['Close'], globals()[f"i_{interval}"]['EMA'], df)
                 
                 
@@ -117,11 +117,11 @@ if backTestInput == "yes" :
                 
                 
                 
-                traDisF(df)
+                buyCounter, sellCounter, tradeCounter = traDisF(df)
                 costF(df, intMoney, floatFee)
 
                 
-
+                print(f"\n\n buyCounter : {buyCounter}    sellCounter : {sellCounter}   tradeCounter : {tradeCounter}" )
                 df.to_excel(f'i_{interval}.xlsx', sheet_name=(f'i_{interval}'))
 
 
@@ -138,7 +138,7 @@ if backTestInput == "yes" :
 
 
 
-                globals()[f"hisp_{interval}"] = B_rsi(globals()[f"df_{interval}"])
+                #globals()[f"hisp_{interval}"] = B_rsi(globals()[f"df_{interval}"])
 
                 
 
@@ -197,7 +197,7 @@ if backTestInput == "yes" :
         mplcursors.cursor(hover=True)
        
 
-        print("data_backtest_dict :  :   :  :   :   :  : \n", data_backtest_dict)
+        #print("data_backtest_dict :  :   :  :   :   :  : \n", data_backtest_dict)
         plt.show()
 
    

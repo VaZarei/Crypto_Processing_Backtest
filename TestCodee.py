@@ -112,11 +112,9 @@ c= a / b
 
 def test():
 
-    for i in range(100):
+    for i in range(1, 10+1, +1):
 
-        if i == 20 :
-
-            return print("Done")
+        
         
         print(i)
 
@@ -132,4 +130,4 @@ data = {
 df = pd.DataFrame(data)
 
 
-print(df)
+#print(df)
