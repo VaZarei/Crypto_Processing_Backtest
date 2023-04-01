@@ -1,5 +1,6 @@
 from openpyxl import Workbook
 import time
+import pandas as pd
 
 
 """
@@ -106,4 +107,29 @@ b= 24
 
 c= a / b
 
-print("c : ", c)
+#print("c : ", c)
+
+
+def test():
+
+    for i in range(100):
+
+        if i == 20 :
+
+            return print("Done")
+        
+        print(i)
+
+test()
+
+data = {
+  "calories": [420, 380, 390],
+  "duration": [50, 40, 45]
+}
+
+#load data into a DataFrame object:
+
+df = pd.DataFrame(data)
+
+
+print(df)

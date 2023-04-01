@@ -16,6 +16,40 @@ def distanceF(ser1, ser2, df) :
                                 
                         
 
+def rsiF(i, df):
+
+  
+        bRule_P_rsi_1 = df.iloc[i-2]['RSI']   >  df.iloc[i-1]['RSI']
+        bRule_P_rsi_2 = df.iloc[i-1]['RSI']   <  df.iloc[i]['RSI']
+        bRule_P_rsi_3 = df.iloc[i-1]['RSI']   <  35
+        
+        if bRule_P_rsi_1 and bRule_P_rsi_2 and bRule_P_rsi_3 :
+
+                
+                for m in range(i-1, 0, -1):
+
+
+                        bRule_P_rsi_4 = df.iloc[m-1]['RSI']   >  df.iloc[m]['RSI']
+                        bRule_P_rsi_5 = df.iloc[m]['RSI']     <  df.iloc[m+1]['RSI']
+
+
+                        bRule_P_rsi_6 = (i-m < 15)
+                         
+
+                        bRule_P_rsi_7 = df.iloc[m]['RSI']     <  df.iloc[i-1]['RSI']
+                        bRule_P_rsi_8 = df.iloc[m]['Close']   >  df.iloc[i-1]['Close']
+
+
+                        if bRule_P_rsi_4 and bRule_P_rsi_5 and bRule_P_rsi_6 and bRule_P_rsi_7 and bRule_P_rsi_8:
+
+                                print("Yessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
+                                return True
+                                
+        else :
+                return False
+        
+
+
 
 
 def traDisF(df) :
@@ -25,6 +59,9 @@ def traDisF(df) :
         costSnap = []
         lastTransAction = ""
 
+
+
+
         for i in range(len(df)) :
                 
                 snapClosePrice = df['Close'][i]
@@ -32,14 +69,24 @@ def traDisF(df) :
                 
                 
                 bRule1 = float(df['dEMA'][i]) < -3.0
-                bRule2 = df['RSI'][i] < 35
+                bRule2 = rsiF(i,df)
                 bRule3 = df['Close'][i] > df['Close'][i-1]
 
 
 
+                
+                
+                
+                       
 
 
-                if buyflag and bRule1 and bRule2 and bRule3 :
+                       
+
+
+
+
+
+                if buyflag and bRule2 :#or (bRule1 and bRule3) :
 
                         df['transAction'][i]   = "Buy"
                         df['PriceAction'][i]   = df['Close'][i]
@@ -59,21 +106,20 @@ def traDisF(df) :
                         
                         sRule1 = (max(costSnap) > 4.0)  and  ((max(costSnap)-costSnap[-1]) > 1.5)
                         sRule2 = ((max(costSnap)-costSnap[-1]) > 3.0)
-                        sRule3 =  df['RSI'][i] > 35
+                        
 
                         sRule4 = float(df['dEMA'][i]) > 3.0
 
 
 
 
-                        if sellFlag and sRule3 and (sRule1 or sRule2) :
+                        if sellFlag  and (sRule1 or sRule2) :
                                 
-                                print("max(costSnap) :", max(costSnap))
-                                print("costSnap[-1] :", costSnap[-1])
-                                print("costSnap : ", costSnap)
+                  
+
                                 df['transAction'][i]   = "Sell"
                                 df['PriceAction'][i]   = df['Close'][i]
-                                lastTransAction = "Sell"
+                                lastTransAction        = "Sell"
 
                                 buyflag  = True
                                 sellFlag = False

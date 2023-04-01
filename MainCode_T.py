@@ -38,10 +38,10 @@ subprocess.call([r'Freeze.bat'])
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 
 ticker       =  "ada-usd"  # lower case
-start_Date   =  "2023-03-1"  #%Y/%m/%d 
+start_Date   =  "2023-02-01"  #%Y/%m/%d 
 
-end_Date     =  "2023-03-18"
-#end_Date     =  datetime.now()
+end_Date     =  "2023-03-13"
+end_Date     =  datetime.now()
 intervalA     =  ["60m"]  # ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"] 
 #intervalA    =  ["1m", "2m", "5m", "15m", "30m", "60m", "90m",  "1d", "5d", "1wk", "1mo", "3mo"] 
 intMaxLen = 14
@@ -85,7 +85,7 @@ if backTestInput == "yes" :
                 
                 df.drop(columns=['Open', 'High', 'Low', 'Adj Close', 'Volume'], axis=1 , inplace=True)
                 
-                print("-------------------------------------------------- :  \n", df)
+                
                 df['RSI']         = ''
                 df['EMA']         = ''
                 df['dEMA']        = '' 
@@ -200,9 +200,7 @@ if backTestInput == "yes" :
         print("data_backtest_dict :  :   :  :   :   :  : \n", data_backtest_dict)
         plt.show()
 
-        
-        #print("data_backtest_dict[f][0]\n" , data_backtest_dict[f"{interval}"][0])
-
+   
 
        
 
