@@ -24,7 +24,7 @@ def bRsiF(i, df):
         bRule_P_rsi_2 = df.iloc[i-1]['RSI']   <  df.iloc[i]['RSI']
         bRule_P_rsi_3 = (df.iloc[i-1]['RSI']  <  30)   and (df.iloc[i-1]['RSI']  <  40)                 and               (df.iloc[i]['RSI'] < 40)
         
-        if bRule_P_rsi_1 and bRule_P_rsi_2 and bRule_P_rsi_3 :
+        if  bRule_P_rsi_3 :
 
                 
                 for m in range(i-1, 0, -1):
@@ -63,6 +63,7 @@ def traDisF(df) :
 
         buyflag  = True
         sellFlag = True
+        buyExeFlag = False
         costSnap = []
         lastTransAction = ""
         buyCounter   = 0
@@ -77,31 +78,38 @@ def traDisF(df) :
                 
                 bRule0 = bRsiF(i, df)
                 bRule1 = float(df['dEMA'][i]) < -3.0
-                bRule4 = df['RSI'][i] < 35
+                bRule4 = df['RSI'][i] < 30
                 bRule5 = df['RSI'][i-2] < df['RSI'][i-1] and df['RSI'][i-1] < df['RSI'][i]
                 bRule3 = df['SMA'][i] > df['SMA'][i-1]
 
 
 
 
-                if buyflag and  (bRule0) :#or (bRule1 and bRule3) :
-                        
+                if buyflag and  (bRule0 or (bRule4 and bRule5)) :
+
+                        buyExeFlag = True
 
 
+                if buyExeFlag :
+
+                        biRule0 =  df['RSI'][i] > 29 
+
+                        if biRule0 :
 
 
-                        df['transAction'][i]   = "Buy"
-                        df['PriceAction'][i]   = df['Close'][i]
-                        buyPrice               = df['Close'][i]
-                        lastTransAction        = "Buy"
-                        
+                                df['transAction'][i]   = "Buy"
+                                df['PriceAction'][i]   = df['Close'][i]
+                                buyPrice               = df['Close'][i]
+                                lastTransAction        = "Buy"
+                                
 
-                        buyCounter   +=1
-                        tradeCounter +=1
-                        buyflag  = True
-                        sellFlag = False
-                        
-                       
+                                buyCounter   +=1
+                                tradeCounter +=1
+                                buyflag  = True
+                                sellFlag = False
+                                buyExeFlag = False
+                                                
+                                
 ## for Sell ------------------------------------------------------------------------------------------------------------
         
                 
