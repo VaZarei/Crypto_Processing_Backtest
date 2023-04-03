@@ -38,9 +38,9 @@ subprocess.call([r'Freeze.bat'])
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 
 ticker       =  "ada-usd"  # lower case
-start_Date   =  "2023-02-15"  #%Y/%m/%d 
+start_Date   =  "2021-12-01"  #%Y/%m/%d 
 
-end_Date     =  "2023-03-22"
+end_Date     =  "2022-01-01"
 #end_Date     =  datetime.now()
 intervalA     =  ["60m"]  # ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"] 
 #intervalA    =  ["1m", "2m", "5m", "15m", "30m", "60m", "90m",  "1d", "5d", "1wk", "1mo", "3mo"] 
@@ -87,6 +87,7 @@ if backTestInput == "yes" :
                 
                 
                 df['RSI']         = ''
+                df['RsiWMA']      = ''
                 df['EMA']         = ''
                 df['dEMA']        = '' 
                 df['SMA']         = ''
@@ -102,9 +103,11 @@ if backTestInput == "yes" :
         
 
                 
-                df['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 12) , 3)   
-                df['EMA'] = talib.EMA((globals()[f"i_{interval}"]['Close']), 50)
-                df['SMA'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 100)
+                #df['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 5) , 3)  
+                df['RSI'] = round(talib.WMA(talib.RSI((globals()[f"i_{interval}"]['Close']), 4) , 10) ,2)
+                df['EMA'] = talib.WMA((globals()[f"i_{interval}"]['Close']), 40)
+                df['SMA'] = talib.WMA((globals()[f"i_{interval}"]['Close']), 10000)
+                #df['RsiWMA'] = talib.WMA(talib.RSI((globals()[f"i_{interval}"]['RSI']), 4),5)
                 df['dEMA'] = distanceF(globals()[f"i_{interval}"]['Close'], globals()[f"i_{interval}"]['EMA'], df)
                 
                 
@@ -148,6 +151,7 @@ if backTestInput == "yes" :
         x = globals()[f"df_{interval}"].Date
         y1=round((globals()[f"df_{interval}"].Close), 6)
         
+
         y2=(globals()[f"df_{interval}"].RSI)
         y3=(globals()[f"df_{interval}"].EMA)
         y4=(globals()[f"df_{interval}"].SMA)       
