@@ -38,9 +38,9 @@ subprocess.call([r'Freeze.bat'])
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 
 ticker       =  "ada-usd"  # lower case
-start_Date   =  "2021-06-01"  #%Y/%m/%d 
+start_Date   =  "2022-08-01"  #%Y/%m/%d 
 
-end_Date     =  "2021-08-01"
+end_Date     =  "2022-09-17"
 #end_Date     =  datetime.now()
 intervalA     =  ["60m"]  # ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"] 
 #intervalA    =  ["1m", "2m", "5m", "15m", "30m", "60m", "90m",  "1d", "5d", "1wk", "1mo", "3mo"] 
@@ -87,6 +87,7 @@ if backTestInput == "yes" :
                 
                 
                 df['RSI']         = ''
+                df['rsiSMA']      = ''
                 df['RsiWMA']      = ''
                 df['EMA']         = ''
                 df['dEMA']        = '' 
@@ -103,12 +104,13 @@ if backTestInput == "yes" :
         
 
                 
-                #df['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 5) , 3)  
-                df['RSI'] = round(talib.SMA(talib.RSI((globals()[f"i_{interval}"]['Close']), 4) , 10) ,2)
-                df['EMA'] = talib.WMA((globals()[f"i_{interval}"]['Close']), 40)
-                df['SMA'] = talib.WMA((globals()[f"i_{interval}"]['Close']), 10000)
+                df['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 15) , 3)  
+                df['rsiSMA'] = talib.EMA(df['RSI'], 14)
+                #df['RSI'] = round(talib.SMA(talib.RSI((globals()[f"i_{interval}"]['Close']), 4) , 10) ,2)
+                df['EMA'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 800)
+                df['SMA'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 800)
                 #df['RsiWMA'] = talib.WMA(talib.RSI((globals()[f"i_{interval}"]['RSI']), 4),5)
-                df['dEMA'] = distanceF(globals()[f"i_{interval}"]['Close'], globals()[f"i_{interval}"]['EMA'], df)
+                df['dEMA'] = distanceF(df['Close'], df['EMA'], df)
                 
                 
 
@@ -154,7 +156,8 @@ if backTestInput == "yes" :
 
         y2=(globals()[f"df_{interval}"].RSI)
         y3=(globals()[f"df_{interval}"].EMA)
-        y4=(globals()[f"df_{interval}"].SMA)       
+        y4=(globals()[f"df_{interval}"].SMA)  
+        y5= df['rsiSMA']     
         
         fig, axs = plt.subplots(2 ,  sharex=True, sharey=False)
         
@@ -185,6 +188,7 @@ if backTestInput == "yes" :
 
 
         axs[1].plot(x, y2, 'tab:green')
+        axs[1].plot(x, y5, 'tab:red')
         axs[1].set_ylabel('RSI')
         axs[1].grid()
 

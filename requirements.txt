@@ -60,9 +60,9 @@ pyzmq==25.0.0
 requests==2.28.2
 six==1.16.0
 soupsieve==2.4
-SQLAlchemy==2.0.5.post1
+SQLAlchemy==2.0.7
 stack-data==0.6.2
-TA-Lib @ file:///F:\python\Crypto_Processing_Backtest\Tools\TA_Lib-0.4.24-cp310-cp310-win_amd64.whl
+TA-Lib @ file:///E:\Python\API\CryptoCurrency\botTrader\Crypto_Processing_Backtest\Tools\TA_Lib-0.4.24-cp310-cp310-win_amd64.whl
 tomli==2.0.1
 tornado==6.2
 traitlets==5.9.0
@@ -70,4 +70,5 @@ typing_extensions==4.5.0
 urllib3==1.26.14
 wcwidth==0.2.6
 webencodings==0.5.1
+xlwt==1.3.0
 yfinance==0.2.12

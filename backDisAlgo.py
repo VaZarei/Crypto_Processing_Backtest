@@ -22,14 +22,15 @@ def bRsiF(i, df):
   
         bRule_P_rsi_1 = df.iloc[i-2]['RSI']   >  df.iloc[i-1]['RSI']
         bRule_P_rsi_2 = df.iloc[i-1]['RSI']   <  df.iloc[i]['RSI']
-        bRule_P_rsi_3 = (df.iloc[i-1]['RSI']  <  30)   and (df.iloc[i-1]['RSI']  <  40)                 and               (df.iloc[i]['RSI'] < 40)
+        bRule_P_rsi_3 = (df.iloc[i-1]['RSI']  >  20)   and (df.iloc[i-1]['RSI']  <  60)                 and               (df.iloc[i]['RSI'] < 40)
         
-        if  bRule_P_rsi_3 :
+        if   bRule_P_rsi_1 and bRule_P_rsi_2 and bRule_P_rsi_3 :
 
                 
                 for m in range(i-1, 0, -1):
-
-                        bRule_P_rsi_0 = (i-m > 1000)
+                        print(f'i: {i-1}, m: {m}')
+                        bRule_P_rsi_0 = (i-m > 30)
+                        #print(f'i: {i}, m: {m}')
                         if bRule_P_rsi_0 :
                                 return False
                         
@@ -42,7 +43,7 @@ def bRsiF(i, df):
                         bRule_P_rsi_8 = df.iloc[m]['Close']   >  df.iloc[i-1]['Close']
 
 
-                        if bRule_P_rsi_4 and bRule_P_rsi_5 and bRule_P_rsi_6 and bRule_P_rsi_7 and bRule_P_rsi_8:
+                        if bRule_P_rsi_4 and bRule_P_rsi_5 and bRule_P_rsi_5 and bRule_P_rsi_7 and bRule_P_rsi_8:
 
                                 for r in range(i-1, m, -1):
                                         if df.iloc[r]['Close'] < df.iloc[i-1]['Close'] and df.iloc[r]['RSI'] < df.iloc[i-1]['RSI'] :
@@ -76,23 +77,25 @@ def traDisF(df) :
                 snapClosePrice = df['Close'][i]
                 
                 
-                bRule0 = bRsiF(i, df)
-                bRule1 = float(df['dEMA'][i]) < -3.0
-                bRule4 = df['RSI'][i] < 30
-                bRule5 = df['RSI'][i-2] < df['RSI'][i-1] and df['RSI'][i-1] < df['RSI'][i]
-                bRule3 = df['SMA'][i] > df['SMA'][i-1]
+                #bRule0 = bRsiF(i, df)
+                bRule1 = float(df['dEMA'][i]) < -8.0
+                bRule4 = df['RSI'][i]   < 30
+                bRule5 = df['RSI'][i-2] > df['RSI'][i-1] and df['RSI'][i-1] < df['RSI'][i]
+                bRule3 = df['SMA'][i]   > df['SMA'][i-1]
+                bRule6 = float(df['dEMA'][i])  > -20.0
+                
+                bRule7 = df['RSI'][i-1] < df['rsiSMA'][i-1]
+                bRule8 = df['RSI'][i] > df['rsiSMA'][i]
 
 
-
-
-                if buyflag and  (bRule0 or (bRule4 and bRule5)) :
+                if buyflag and bRule4 and bRule5 :
 
                         buyExeFlag = True
 
 
                 if buyExeFlag :
 
-                        biRule0 =  df['RSI'][i] > 29 
+                        biRule0 =  df['RSI'][i]> 30
 
                         if biRule0 :
 
@@ -105,8 +108,8 @@ def traDisF(df) :
 
                                 buyCounter   +=1
                                 tradeCounter +=1
-                                buyflag  = True
-                                sellFlag = False
+                                buyflag  = False
+                                sellFlag = True
                                 buyExeFlag = False
                                                 
                                 
@@ -126,7 +129,7 @@ def traDisF(df) :
 
 
 
-                        if sellFlag  and sRule2 and sRule5 :
+                        if sellFlag  and (sRule1 or sRule4)  :
                                 
                   
 
