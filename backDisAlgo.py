@@ -78,11 +78,11 @@ def traDisF(df) :
                 
                 
                 #bRule0 = bRsiF(i, df)
-                bRule1 = float(df['dEMA'][i]) < -8.0
-                bRule4 = df['RSI'][i]   < 30
+                #bRule1 = float(df['dSMA'][i]) < -8.0
+                bRule4 = df['RSI'][i-1]   < 30
                 bRule5 = df['RSI'][i-2] > df['RSI'][i-1] and df['RSI'][i-1] < df['RSI'][i]
                 bRule3 = df['SMA'][i]   > df['SMA'][i-1]
-                bRule6 = float(df['dEMA'][i])  > -20.0
+                bRule6 = float(df['dSMA'][i])  > -20.0
                 
                 bRule7 = df['RSI'][i-1] < df['rsiSMA'][i-1]
                 bRule8 = df['RSI'][i] > df['rsiSMA'][i]
@@ -95,9 +95,10 @@ def traDisF(df) :
 
                 if buyExeFlag :
 
-                        biRule0 =  df['RSI'][i]> 30
+                        biRule0 =  df['RSI'][i]> 30 and df['SMA'][i] < df['Close'][i] and df['SMA'][i-1]<df['SMA'][i]
+                        biRule1 =  float(df['dSMA'][i]) < -3.0
 
-                        if biRule0 :
+                        if biRule0  :
 
 
                                 df['transAction'][i]   = "Buy"
@@ -119,30 +120,37 @@ def traDisF(df) :
                 if lastTransAction == "Buy" :
 
                         costSnap.append(round(((snapClosePrice - buyPrice) / (snapClosePrice) *(100)) , 3))
-                        
+                        sellExeFlag = False
+
+
                         sRule1 = (max(costSnap) > 7.0)  and  ((max(costSnap)-costSnap[-1]) > 1.5)
-                        sRule2 = ((max(costSnap)-costSnap[-1]) > 3.0)
-                        sRule4 = (costSnap[-1]) < -3.0
+                        sRule2 = True if (costSnap[-1] > 0 and  ((max(costSnap)-costSnap[-1]) > 3.5)) else False
+                        sRule4 = (costSnap[-1]) < -5.0
                         #sRule5 = df['RsiWMA'][i] > 30
-                        sRule6 = float(df['dEMA'][i]) > 3.0
+                        sRule6 = float(df['dSMA'][i]) > 3.0
 
 
 
 
-                        if sellFlag  and (sRule1 or sRule4)  :
-                                
-                  
+                        if sellFlag  and (sRule4 or sRule2 or sRule1)  :
 
-                                df['transAction'][i]   = "Sell"
-                                df['PriceAction'][i]   = df['Close'][i]
-                                lastTransAction        = "Sell"
+                                sellExeFlag = ((df['SMA'][i]>df['Close'][i]) and (df['RSI'][i] > 35)) or (costSnap[-1] > 2.0)
+
+                                if sellExeFlag :
 
                                 
-                                sellCounter  +=1
-                                tradeCounter +=1
-                                buyflag  = True
-                                sellFlag = False
-                                costSnap = []
+
+                                        df['transAction'][i]   = "Sell"
+                                        df['PriceAction'][i]   = df['Close'][i]
+                                        lastTransAction        = "Sell"
+
+                                        
+                                        sellCounter  +=1
+                                        tradeCounter +=1
+                                        buyflag  = True
+                                        sellFlag = False
+                                        sellExeFlag = False
+                                        costSnap = []
 
         return buyCounter, sellCounter, tradeCounter
 
