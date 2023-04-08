@@ -11,7 +11,7 @@ def distanceF(ser1, ser2, df) :
 
 
                                 percent = (ser1.iloc[t] - ser2.iloc[t])/ser1.iloc[t] * 100
-                                ser3.iloc[t] = round(percent, 3)
+                                ser3.iloc[t] = float(round(percent, 3))
         return  ser3
                                 
                         
@@ -81,8 +81,8 @@ def traDisF(df) :
                 #bRule1 = float(df['dSMA'][i]) < -8.0
                 bRule4 = df['RSI'][i-1]   < 30
                 bRule5 = df['RSI'][i-2] > df['RSI'][i-1] and df['RSI'][i-1] < df['RSI'][i]
-                bRule3 = df['SMA'][i]   > df['SMA'][i-1]
-                bRule6 = float(df['dSMA'][i])  > -20.0
+                #bRule3 = df['SMA'][i]   > df['SMA'][i-1]
+                #bRule6 = float(df['dSMA'][i])  > -20.0
                 
                 bRule7 = df['RSI'][i-1] < df['rsiSMA'][i-1]
                 bRule8 = df['RSI'][i] > df['rsiSMA'][i]
@@ -95,8 +95,8 @@ def traDisF(df) :
 
                 if buyExeFlag :
 
-                        biRule0 =  df['RSI'][i]> 30 and df['SMA'][i] < df['Close'][i] and df['SMA'][i-1]<df['SMA'][i]
-                        biRule1 =  float(df['dSMA'][i]) < -3.0
+                        biRule0 =  df['RSI'][i]> 30 # and df['SMA'][i] < df['Close'][i] and df['SMA'][i-1]<df['SMA'][i]
+                        #biRule1 =  float(df['dSMA'][i]) < -3.0
 
                         if biRule0  :
 
@@ -126,15 +126,15 @@ def traDisF(df) :
                         sRule1 = (max(costSnap) > 7.0)  and  ((max(costSnap)-costSnap[-1]) > 1.5)
                         sRule2 = True if (costSnap[-1] > 0 and  ((max(costSnap)-costSnap[-1]) > 3.5)) else False
                         sRule4 = (costSnap[-1]) < -5.0
-                        #sRule5 = df['RsiWMA'][i] > 30
-                        sRule6 = float(df['dSMA'][i]) > 3.0
+                        
+                        sRule5 = df['Close'][i] > df['SMA_2'][i] 
 
 
 
 
-                        if sellFlag  and (sRule4 or sRule2 or sRule1)  :
+                        if sellFlag  and (sRule4 or sRule5)  :
 
-                                sellExeFlag = ((df['SMA'][i]>df['Close'][i]) and (df['RSI'][i] > 35)) or (costSnap[-1] > 2.0)
+                                sellExeFlag = df['SMA_1'][i-2] > df['SMA_1'][i-1] and df['SMA_1'][i-1] > df['SMA_1'][i]
 
                                 if sellExeFlag :
 

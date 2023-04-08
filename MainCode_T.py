@@ -18,6 +18,11 @@ from Fetch_YF_Functons import *
 from backAl import *
 from datetime import datetime
 
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.metrics import mean_squared_error
+from sklearn.preprocessing import MinMaxScaler
+
 from openpyxl import Workbook
 from openpyxl.styles import Alignment
 
@@ -38,7 +43,7 @@ subprocess.call([r'Freeze.bat'])
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 
 ticker       =  "ada-usd"  # lower case
-start_Date   =  "2022-10-01"  #%Y/%m/%d 
+start_Date   =  "2022-01-01"  #%Y/%m/%d 
 
 end_Date     =  "2022-12-17"
 #end_Date     =  datetime.now()
@@ -82,18 +87,21 @@ if backTestInput == "yes" :
                 
                 globals()[f"i_{interval}"] = data_backtest_dict[f"{interval}"][0]
                 df = data_backtest_dict[f"{interval}"][0]
-                
+                df1 = df
                 df.drop(columns=['Open', 'High', 'Low', 'Adj Close', 'Volume'], axis=1 , inplace=True)
                 
                 
                 df['RSI']         = ''
                 df['rsiSMA']      = ''
-                df['RsiWMA']      = ''
-                df['EMA']         = ''
-                df['dEMA']        = '' 
-                df['SMA']         = ''
-                #df['SMA']         = ''
-               
+
+
+
+                df['SMA_1']         = ''
+                df['SMA_2']         = ''
+
+                df['dSMA_1']      = '' 
+                df['dSMA_2']      = '' 
+                df['dClose']      = ''
                
                 df['transAction'] = ''
                 df['PriceAction'] = ''
@@ -104,26 +112,35 @@ if backTestInput == "yes" :
         
 
                 
-                df['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 15) , 3)  
+                df['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 25) , 3)  
                 df['rsiSMA'] = talib.EMA(df['RSI'], 10)
-                #df['RSI'] = round(talib.SMA(talib.RSI((globals()[f"i_{interval}"]['Close']), 4) , 10) ,2)
-                df['EMA'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 1800)
-                df['SMA'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 20)
-                #df['RsiWMA'] = talib.WMA(talib.RSI((globals()[f"i_{interval}"]['RSI']), 4),5)
-                df['dSMA'] = distanceF(df['Close'], df['SMA'], df)
+
+                df['SMA_1'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 7)
+                df['SMA_2'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 25)
                 
+               
+                df['dSMA_1'] = distanceF(df['Close'], df['SMA_1'], df)
+                df['dSMA_2'] = distanceF(df['Close'], df['SMA_2'], df)
+
+
+                df['dClose'] = distanceF(df['Close'], df.Close.shift(1), df)
                 
 
                 
 
-                ser1 = globals()[f"i_{interval}"]['Close']
-                ser2 = globals()[f"i_{interval}"]['SMA']
+                #ser1 = globals()[f"i_{interval}"]['Close']
+                #ser2 = globals()[f"i_{interval}"]['SMA']
                 
                 
                 
                 
                 buyCounter, sellCounter, tradeCounter = traDisF(df)
                 costF(df, intMoney, floatFee)
+                
+             
+
+
+
 
                 
                 print(f"\n\n buyCounter : {buyCounter}    sellCounter : {sellCounter}   tradeCounter : {tradeCounter}" )
@@ -155,8 +172,8 @@ if backTestInput == "yes" :
         
 
         y2=(globals()[f"df_{interval}"].RSI)
-        y3=(globals()[f"df_{interval}"].EMA)
-        y4=(globals()[f"df_{interval}"].SMA)  
+        y3=(globals()[f"df_{interval}"].SMA_1)
+        y4=(globals()[f"df_{interval}"].SMA_2)  
         y5= df['rsiSMA']     
         
         fig, axs = plt.subplots(2 ,  sharex=True, sharey=False)
