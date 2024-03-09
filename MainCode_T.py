@@ -43,11 +43,11 @@ subprocess.call([r'Freeze.bat'])
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 
 ticker       =  "ada-usd"  # lower case
-start_Date   =  "2022-10-01"  #%Y/%m/%d 
+start_Date   =  "2024-01-01"  #%Y/%m/%d 
 
-end_Date     =  "2022-12-29"
-#end_Date     =  datetime.now()
-intervalA     =  ["60m"]  # ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"] 
+# end_Date     =  "2024-12-29"
+end_Date     =  datetime.now()
+intervalA     =  ["15m"]  # ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"] 
 #intervalA    =  ["1m", "2m", "5m", "15m", "30m", "60m", "90m",  "1d", "5d", "1wk", "1mo", "3mo"] 
 intMaxLen = 14
 rsi_period = 7
@@ -112,11 +112,11 @@ if backTestInput == "yes" :
         
 
                 
-                df['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 25) , 3)  
+                df['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 20) , 3)  
                 df['rsiSMA'] = talib.EMA(df['RSI'], 10)
 
                 df['SMA_1'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 7)
-                df['SMA_2'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 25)
+                df['SMA_2'] = round(talib.SMA((globals()[f"i_{interval}"]['Close']), 50),4)
                 
                
                 df['dSMA_1'] = distanceF(df['Close'], df['SMA_1'], df)

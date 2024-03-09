@@ -124,20 +124,26 @@ def traDisF(df) :
                         
 
 
-                        sRule1 = (max(costSnap) > 7.0)  and  ((max(costSnap)-costSnap[-1]) > 1.5)
-                        sRule2 = True if (costSnap[-1] > 0 and  ((max(costSnap)-costSnap[-1]) > 3.5)) else False
-                        sRule4 = (costSnap[-1]) < -5.0
+                        sRule1  = (max(costSnap) > 7.0)  and  ((max(costSnap)-costSnap[-1]) > 1.5)
+                        sRule2  = True if (costSnap[-1] > 0 and  ((max(costSnap)-costSnap[-1]) > 3.5)) else False
+                        sRule4  = (costSnap[-1]) < -5.0
                         
-                        sRule5 = df['Close'][i] > df['SMA_2'][i] and df['SMA_2'][i-1] < df['SMA_2'][i]
-                        sRule6 = ( df['SMA_2'][i-2] > df['SMA_2'][i-1] and df['SMA_2'][i-1] > df['SMA_2'][i]  )
-                        sRule7 = df['RSI'][i] > 40
+                        sRule5  = df['Close'][i] > df['SMA_2'][i] and df['SMA_2'][i-1] < df['SMA_2'][i]
+                        sRule6  = ( df['SMA_2'][i-2] > df['SMA_2'][i-1] and df['SMA_2'][i-1] > df['SMA_2'][i]  )
+                        sRule7  = df['RSI'][i] > 70
+                        sRule8  = df['SMA_1'][i-1] > df['SMA_1'][i]
+                        sRule9  = df['SMA_2'][i-1] < df['Close'][i-1]
+                        sRule10 = df['SMA_2'][i-2] > df['SMA_2'][i-1] > df['SMA_2'][i]
+                        sRule11 = df['SMA_2'][i]   > df['Close'][i]
+                        sRule12 = df['SMA_1'][i]   > df['Close'][i]
 
 
-                        if (sellExeFlag)  or  (sellFlag and (sRule4 or sRule5))  :
+
+                        if (sellExeFlag)  or  (sellFlag and (sRule4 or sRule9))  :
 
                                 sellExeFlag = True
 
-                                if sellExeFlag and sRule6 and sRule7  :
+                                if sellExeFlag and (sRule4 or (sRule10 and sRule11 and sRule12))  :
 
                                 
 
