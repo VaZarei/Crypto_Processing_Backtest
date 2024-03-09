@@ -68,7 +68,7 @@ SQLAlchemy==2.0.5.post1
 stack-data==0.6.2
 statsmodels==0.13.5
 ta==0.10.2
-TA-Lib @ file:///F:\python\Crypto_Processing_Backtest\Tools\TA_Lib-0.4.24-cp310-cp310-win_amd64.whl
+TA-Lib @ file:///F:/Python/Tbot/Tools/TA_Lib-0.4.24-cp310-cp310-win_amd64.whl#sha256=e730d89fcfc3f0832b3495e6fa0e47ab802eb6aa0c65c5fa2a9fd267e18bdef4
 threadpoolctl==3.1.0
 tomli==2.0.1
 tornado==6.2

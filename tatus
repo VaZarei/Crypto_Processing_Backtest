@@ -1,0 +1,537 @@
+[33mcommit 8d65804868e910f7ad7ef2da8eaa75089e9e4388[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
+Author: VZarei <Engitrefinery@gmail.com>
+Date:   Mon Feb 12 13:37:17 2024 +0000
+
+    Some CHange on Readme.md
+
+[33mcommit d666c3e9b0f6213519a9debe35931d5fbc1fbff2[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Sat Apr 8 18:05:21 2023 +0430
+
+    sma working ambigute
+
+[33mcommit 5625809e47fc8e6e8e6cfe8635d5644446ac3ca1[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Sat Apr 8 16:25:12 2023 +0430
+
+    strategy base sma  - good result
+
+[33mcommit 056ca9de0af992b838665c944c897c3d0e2cbff8[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Wed Apr 5 14:48:53 2023 +0430
+
+    Study about timeSeries
+
+[33mcommit e60d9cd545f632a03d6eb01ec282321bd9e89022[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Tue Apr 4 15:03:39 2023 +0430
+
+    Some change on strategy
+
+[33mcommit dd074292b7ab510449124a54a5db349cbef3144f[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Tue Apr 4 06:03:59 2023 +0430
+
+    rsistrategy 03
+
+[33mcommit 9f189b2d8fd48db41acf7862c8a331551e1ed5af[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Mon Apr 3 14:47:56 2023 +0430
+
+    Some Change on strategy
+
+[33mcommit dae907c7b9e6915bf17ac79a5d9e0e2c223b5ad7[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Mon Apr 3 06:09:59 2023 +0430
+
+    some change on strategy
+
+[33mcommit f63c4a02a2f9918a6877bbfa778b2ae5faba6e3a[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Sat Apr 1 21:50:52 2023 +0430
+
+    best Condition to buy - until Now  - 01
+
+[33mcommit de89bcb7465d68363f8a7735c244434885cabd6d[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Sat Apr 1 14:37:07 2023 +0430
+
+    rsi_ 01
+
+[33mcommit 661900f989588f5650940b4975791a24a1c169f0[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Fri Mar 31 19:29:21 2023 +0430
+
+    startegy - 02
+
+[33mcommit 5b679162fccfae4584c22367bedc1705835f7c2c[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Fri Mar 31 18:43:20 2023 +0430
+
+    Startegy test - 01
+
+[33mcommit ac72956cd8e547888989fe4f5d8ea6771ff3fa64[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Thu Mar 30 02:19:49 2023 +0430
+
+    AlgoProcessing _ Costbenefit Design
+
+[33mcommit 683ec509a22e1b933a0956b246fd8b32bbeceb82[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Wed Mar 29 23:28:08 2023 +0430
+
+    Distance Figure
+
+[33mcommit 0d4bec24811149c35afc49cfe25c292391402a83[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Wed Mar 29 16:56:41 2023 +0430
+
+    make distanceF
+
+[33mcommit 706e4b733e229c13f5b83cd6b0e2b69e2cf3b339[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Wed Mar 22 17:37:53 2023 +0430
+
+    some change on figure
+
+[33mcommit 176e06b8efbcbe0b14d4a725ed7acf236c2769f5[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Sun Mar 19 15:23:28 2023 +0330
+
+    change function
+
+[33mcommit c98d12e1d4f3c203a3d4c26967e6b71176d409b6[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Sat Mar 18 15:34:10 2023 +0330
+
+    add somting else
+
+[33mcommit d06f0580c6e1c920b6717ec46e5602b4a305bdd5[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Sat Mar 18 10:12:53 2023 +0330
+
+    rsi Function For Buy created, need to refine ...
+
+[33mcommit b4a6adc9cf5eb5b6f54e8a490e35144759eeef36[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Fri Mar 17 19:58:03 2023 +0330
+
+    Algo test
+
+[33mcommit 3014252734adbf367c5e1700fef149324c8a3fcc[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Wed Mar 15 15:15:21 2023 +0330
+
+    figure Complete _01
+
+[33mcommit 8720cd3956b84c037e920fb0efedf631d5f184bb[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Tue Mar 14 15:27:51 2023 +0330
+
+    fig processing
+
+[33mcommit 1de498560ee119a1e624b648fa0ab1f4460386e4[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Tue Mar 14 00:14:59 2023 +0330
+
+    Algo Write 01
+
+[33mcommit 23a5bd4ce78ae4b80a425ca228c6809668e65ea0[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Mon Mar 13 14:08:54 2023 +0330
+
+    fig base
+
+[33mcommit 69065af1b485c585670b2c5d8ea0ceba6ab1947c[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Sun Mar 12 23:47:11 2023 +0330
+
+    base plot
+
+[33mcommit f1309bb6359f54dd4d700e7e74f920b0d7846a5d[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Sun Mar 12 15:23:12 2023 +0330
+
+    Create plot Base
+
+[33mcommit 6486944f3d10da32437edb86c89f1e25de7fd771[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Fri Mar 10 01:35:32 2023 +0330
+
+    make dynamic variable to calculate rsi fo all intervals
+
+[33mcommit f2675921f0d9e02acbe26b5a29819281bffd826b[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Thu Mar 9 22:58:11 2023 +0330
+
+    add Freeze.bat File
+
+[33mcommit 7adc25dfa365a46fd87defbe7441ed153ef0fa46[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Thu Mar 9 20:51:12 2023 +0330
+
+    backtest fetch has some bug when connection lost and prevent to change date when interval is more than 60M _ need to repair Crypto_to_MySQL_offline repository
+
+[33mcommit dcb949d9ce01567c410622985e047fd4bf92be3b[m
+Author: Vahid Zarei <53605084+VaZarei@users.noreply.github.com>
+Date:   Thu Mar 9 18:33:10 2023 +0330
+
+    Update README.md
+
+[33mcommit cb8e13c619f57cccbf923500648b4c3fe79b52d6[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Thu Mar 9 17:57:36 2023 +0330
+
+    Back fetch and online fetch and store to my sql is OK Version 4.2.0
+
+[33mcommit e002c09157bacb4b34dfb0db53ee21b05b21ac87[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Thu Mar 9 17:51:06 2023 +0330
+
+    fetch from yahoo in back test and
+
+[33mcommit 42032a4cc7bfc3ede52e3c636f2d7947dc394499[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Mon Mar 6 15:26:23 2023 +0330
+
+    make dictFunction to store data processed
+
+[33mcommit 19a36922b784324a7bad2b1218e7d365d8c4d6a9[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Mon Mar 6 12:22:00 2023 +0330
+
+    after install Venv
+
+[33mcommit 147359ec3a0ecc939817a35010f28dfc5be45fe9[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Sun Mar 5 20:57:24 2023 +0330
+
+    make some change
+
+[33mcommit 42716a92f5634ae4f055de1c2e3578340e1b4980[m
+Merge: 81283bc ee843a3
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Sun Mar 5 18:18:18 2023 +0330
+
+    make some changes
+
+[33mcommit ee843a35b482ec44aac310002c023fde6ac7a329[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Sun Mar 5 15:23:12 2023 +0330
+
+    try to install TA-lib
+
+[33mcommit 8ad8c852e40641d07a908ab7ebfd025894a36b88[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Sun Mar 5 13:33:42 2023 +0330
+
+    mace function UPDATE_DATA for auto tables Update
+
+[33mcommit e46c45f178c732483bc271a4267bf4d5753460d9[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Sun Mar 5 11:19:30 2023 +0330
+
+    write code for lost internrt connection
+
+[33mcommit aefcb44203a499a09733cca6bf853707b08af959[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Sat Mar 4 15:35:41 2023 +0330
+
+    make some change for data Error
+
+[33mcommit 346d8a14110747a47e1fac1d150fee3713107ce5[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Sat Mar 4 00:22:14 2023 +0330
+
+    make a function for check deferent betwin yfLive and mysql store in testcodee.py
+
+[33mcommit 81283bc28cc676fbbda7992b6db8dad194acd1df[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Sat Mar 4 00:22:14 2023 +0330
+
+    make a function for check deferent betwin yfLive and mysql store in testcodee.py
+
+[33mcommit 3319bcaf78608ffcb17a8a639720b1500c66dd82[m
+Author: Vahid Zarei <53605084+VaZarei@users.noreply.github.com>
+Date:   Fri Mar 3 21:48:19 2023 +0330
+
+    Update README.md
+
+[33mcommit b6f1ff0095fb17aa4d1ff3045a97b85bccfe30fa[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Fri Mar 3 21:26:15 2023 +0330
+
+    solve problem about date on fetch data from yFinance
+
+[33mcommit e91d73fbd3e9599084512b50c0336196b08ada8b[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Fri Mar 3 20:02:59 2023 +0330
+
+    writing date code for Online cal _ 2
+
+[33mcommit b4fccccf6fd2a68680045903bad8e302e1e92759[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Fri Mar 3 15:21:41 2023 +0330
+
+    writing date code for Online cal
+
+[33mcommit c12db4425cbeaa99847e2cd122f5153245a7f156[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Thu Mar 2 19:44:43 2023 +0330
+
+    make section to backtest and online Condition
+
+[33mcommit e94977ca30d448fc56d7e77f6fe01179791f3189[m
+Author: Vahid Zarei <53605084+VaZarei@users.noreply.github.com>
+Date:   Thu Mar 2 09:11:53 2023 +0330
+
+    Update README.md
+
+[33mcommit 563c23dff550172f9d0a27d87b3ae32e040fa50a[m
+Author: Vahid Zarei <53605084+VaZarei@users.noreply.github.com>
+Date:   Thu Mar 2 09:11:19 2023 +0330
+
+    Update README.md
+
+[33mcommit b9094abaea9f96e53f4ae4f1d42a1eec3a9ddf94[m
+Author: Vahid Zarei <53605084+VaZarei@users.noreply.github.com>
+Date:   Thu Mar 2 09:10:24 2023 +0330
+
+    Update README.md
+
+[33mcommit 4eef961aff55853567745a46d915c89b819251b6[m
+Author: Vahid Zarei <53605084+VaZarei@users.noreply.github.com>
+Date:   Thu Mar 2 09:09:09 2023 +0330
+
+    Update README.md
+
+[33mcommit a19702abc77110548308864627b5dcd6804334f9[m
+Author: Vahid Zarei <53605084+VaZarei@users.noreply.github.com>
+Date:   Thu Mar 2 09:07:44 2023 +0330
+
+    Update README.md
+
+[33mcommit e0fe2521787ed6dc0bedb7ba2ba4dff2ec0fcade[m
+Author: Vahid Zarei <53605084+VaZarei@users.noreply.github.com>
+Date:   Thu Mar 2 09:06:50 2023 +0330
+
+    Update README.md
+
+[33mcommit 4867920ea236d91134c765b58316db868c336e42[m
+Author: Vahid Zarei <53605084+VaZarei@users.noreply.github.com>
+Date:   Thu Mar 2 09:06:12 2023 +0330
+
+    Update README.md
+
+[33mcommit 5e679a51ea90489bafc6b72bea511b7e8c8aab1c[m
+Author: Vahid Zarei <53605084+VaZarei@users.noreply.github.com>
+Date:   Thu Mar 2 09:04:20 2023 +0330
+
+    Update README.md
+
+[33mcommit b6d9ba5ece87091cfd22d89f68bfa658decc6807[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Wed Mar 1 23:20:24 2023 +0330
+
+    Make some Change to cleane code and files, now fetch data from yfinance and push them to mysql and pull from mysql is OK
+
+[33mcommit a2397787bfe0ec6002e7d5fd54a056855428ce8f[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Wed Mar 1 21:51:17 2023 +0330
+
+    write simple codes for Crud
+
+[33mcommit 1da43ec772ccea6c3a6f270781f040d866fd6d99[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Wed Mar 1 15:16:30 2023 +0330
+
+    Select data from sql and Convert to dataframe ok
+
+[33mcommit 347265038609d734f7acb5cc3dbaba3ef50d4b10[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Wed Mar 1 11:01:13 2023 +0330
+
+    create db and send multiple query to my sql by python
+
+[33mcommit c6945e934f48c74d9afd5ff0dc98a9e4a665d0af[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Tue Feb 28 23:25:21 2023 +0330
+
+     run query in oneline on sql
+
+[33mcommit 03b3e7f5440ab75797a9fe7c1ad52375d972c9b3[m
+Merge: 26061f8 4ac2cee
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Tue Feb 28 21:31:44 2023 +0330
+
+    Merge branch 'mvc' of https://github.com/VaZarei/Crypto_MySQL
+
+[33mcommit 26061f82a615930f399b8837bcb9f4f8f6446dcd[m
+Merge: 108b9f9 3853d81
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Tue Feb 28 21:30:53 2023 +0330
+
+    Merge branch 'master' of https://github.com/VaZarei/Crypto_MySQL
+
+[33mcommit 4ac2cee642677e69182bac5ebe001247bacba5af[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Tue Feb 28 15:21:52 2023 +0330
+
+    Implement MVC _ make model, viw, control Files
+
+[33mcommit 3853d81f38df12f87c48d85fcc11e4f393c82089[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Tue Feb 28 11:44:55 2023 +0330
+
+    push from yfinance - pull to mysql in base is Ok
+
+[33mcommit fd7da88579f81f4c40e48616a0e507fdca5fad86[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Tue Feb 28 07:45:04 2023 +0330
+
+    base sql refined
+
+[33mcommit f843ec84716f6c077df6b6f453f5d1a2a56bea84[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Sat Feb 25 22:32:34 2023 +0330
+
+     base SQL - Make DB by python and remove
+
+[33mcommit 66d6b071f604a886d378125a7810dae317a6992c[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Fri Feb 24 13:03:41 2023 +0330
+
+    begin to pull
+
+[33mcommit 108b9f947073d03503fc1a1d7459eeed5a72ee80[m
+Merge: ec3c80d d61cfe4
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Fri Feb 24 10:46:47 2023 +0330
+
+    merge fetch2mysql branch with master
+
+[33mcommit d61cfe4b74433e24454b46a40aba7e11652fd13d[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Fri Feb 24 10:42:28 2023 +0330
+
+    Make new file Pull_YF_Functions
+
+[33mcommit ec3c80daa34b423c44ae3c0f362dbdda40b56234[m
+Author: Vahid Zarei <engitrefinery@gmail.com>
+Date:   Fri Feb 24 09:34:24 2023 +0330
+
+    Update Readme.md
+
+[33mcommit 5a9311927e331b8efe519b3c8b12a2e329fc9d47[m
+Author: Vahid Zarei <Engitrefinery@gmail.com>
+Date:   Sat Feb 18 14:19:46 2023 +0330
+
+    All Fetch is ok  _   Clean code done and Function documantation is done  _   temprory files DELETED
+
+[33mcommit 511b5a601371496bb9c0ffa8699c6b41a0e7e978[m
+Author: Vahid Zarei <Engitrefinery@gmail.com>
+Date:   Sat Feb 18 12:28:35 2023 +0330
+
+    make Some Clean Code _ Date str is Ok
+
+[33mcommit 0c328737e5fd5c9cac36a4d64c0b5c297ad769db[m
+Author: Vahid Zarei <Engitrefinery@gmail.com>
+Date:   Sat Feb 18 11:33:03 2023 +0330
+
+    make code splite to functions
+
+[33mcommit d07203928960947ae640d332b427fe8db758879b[m
+Author: Vahid Zarei <Engitrefinery@gmail.com>
+Date:   Sat Feb 18 10:49:01 2023 +0330
+
+    update .gitignore
+
+[33mcommit e2322aca2b7bf69af5d7f466b3a040e39e57931f[m
+Author: Vahid Zarei <Engitrefinery@gmail.com>
+Date:   Fri Feb 17 19:30:47 2023 +0330
+
+    All Fetch is ok and Clean Code Done! _ next Step Push Data to mySQL
+
+[33mcommit 481351449421a135e1ec3cc94524521bf1c7ee90[m
+Author: Vahid Zarei <53605084+VaZarei@users.noreply.github.com>
+Date:   Fri Feb 17 19:29:17 2023 +0330
+
+    Create README.md
+
+[33mcommit e5b866e0bd4d9a9de7629929a59f40533123d3c5[m
+Author: Vahid Zarei <Engitrefinery@gmail.com>
+Date:   Fri Feb 17 16:55:44 2023 +0330
+
+    all fetch date is ok _ need To clean Code
+
+[33mcommit 4f790ef195b7eb5420ac89a67373278c8ffc2bd8[m
+Author: Vahid Zarei <Engitrefinery@gmail.com>
+Date:   Fri Feb 17 16:29:52 2023 +0330
+
+    end date time in handwrite is OK
+
+[33mcommit 900aaf60ef417d573ac5b246c946b92b03a096b7[m
+Author: Vahid Zarei <Engitrefinery@gmail.com>
+Date:   Fri Feb 17 16:22:49 2023 +0330
+
+    befor change on output datetime.now()
+
+[33mcommit e30bd8c461f306a071b9616481ca897b5acebc67[m
+Author: Vahid Zarei <Engitrefinery@gmail.com>
+Date:   Fri Feb 17 12:23:08 2023 +0330
+
+    Commit a test file
+
+[33mcommit c34cd96bb8b8664efea514827bcaba012877ee67[m
+Author: Vahid Zarei <Engitrefinery@gmail.com>
+Date:   Fri Feb 17 10:49:48 2023 +0330
+
+    Update git ignore
+
+[33mcommit 82bb2a4efb3f5558b353514a8a90e6e7c9043ab5[m
+Author: Vahid Zarei <Engitrefinery@gmail.com>
+Date:   Thu Feb 16 20:09:55 2023 +0330
+
+    1m interval maybe Compelete
+
+[33mcommit 9746a74dece1bc35e9cf435d841f820b36471fa8[m
+Author: Vahid Zarei <Engitrefinery@gmail.com>
+Date:   Thu Feb 16 19:09:17 2023 +0330
+
+    Make git ignore file
+
+[33mcommit 5ba31922edb17ca804ae417526d2606868fb89c3[m
+Author: Vahid Zarei <Engitrefinery@gmail.com>
+Date:   Thu Feb 16 11:40:14 2023 +0330
+
+    make inner Function : count_date_Diff
+
+[33mcommit 1dec5b99e5d476974e187b7fd04893ab26ded280[m
+Author: Vahid Zarei <Engitrefinery@gmail.com>
+Date:   Sun Feb 12 01:07:35 2023 +0330
+
+    Count date Deference
+
+[33mcommit 47de0ea215cde8d43b0957385829b69e091a6de6[m
+Author: Vahid Zarei <Engitrefinery@gmail.com>
+Date:   Sat Feb 11 23:39:55 2023 +0330
+
+    Send To ServerGit
+
+[33mcommit 52096ce2411c8885063f2c11e0deebd159ad05ba[m
+Author: Vahid Zarei <Engitrefinery@gmail.com>
+Date:   Sat Feb 11 22:25:01 2023 +0330
+
+    rename Untitle to TestCode.ipynb
+
+[33mcommit 3c97ab481f60cecaf63cda3e1adc54f447e0d3da[m
+Author: Vahid Zarei <Engitrefinery@gmail.com>
+Date:   Sat Feb 11 22:13:16 2023 +0330
+
+    Untitled-1.ipynb made for test Code
+
+[33mcommit 84b07c033aaa651314354f0bdc2c850b941c5bf3[m
+Author: Vahid Zarei <Engitrefinery@gmail.com>
+Date:   Sat Feb 11 12:25:51 2023 +0330
+
+    Create fetchData.py File

@@ -14,7 +14,7 @@ def mySqlConf(value) :
         var = {
 
         "host" : "localhost",
-        "user" : "admin1",
+        "user" : "root",
         "pass" : "admin123",
         "database_name" : "traderbot" ,
                                                                       
