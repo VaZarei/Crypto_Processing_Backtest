@@ -104,11 +104,11 @@ if main_Var['backTestInput'] == "yes" :
         
 
                 
-                df['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 20) , 3)  
+                df['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 15) , 3)  
                 df['rsiSMA'] = talib.EMA(df['RSI'], 10)
 
                 df['SMA_1'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 15)
-                df['SMA_2'] = round(talib.SMA((globals()[f"i_{interval}"]['Close']), 30),4)
+                df['SMA_2'] = round(talib.SMA((globals()[f"i_{interval}"]['Close']), 100),4)
                 
                
                 df['dSMA_1'] = distanceF(df['Close'], df['SMA_1'], df)

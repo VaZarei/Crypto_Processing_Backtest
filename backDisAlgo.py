@@ -81,10 +81,10 @@ def traDisF(df) :
         tradeCounter = 0
 
         dict_Detail_Data = data_backtest_dict = fetch_Data_backtest(strTicker=main_Var['s_ticker'], strStart_Date=main_Var['start_Date'], strEnd_Date=main_Var['end_Date'], Interval = main_Var['dfd_interval'])
-        # dfd = dict_Detail_Data[main_Var['dfd_interval'][0]]
+        
         
         dfd= dict_Detail_Data[main_Var['dfd_interval'][0]][0]
-        print(dfd.head(10))
+        # print(dfd.head(10))
 
         # print(type(dfd1), dfd1)
 
@@ -139,55 +139,59 @@ def traDisF(df) :
                         if i != len(df)-1 :
                                 endDatetime   = df.index[i+1]
 
-                        
-                        # print(startDatetime, endDatetime )
-                
-                        dfd_Check = dfd.loc[startDatetime:endDatetime]
-                        print(dfd_Check)
+                        dfd_Close_Check = round(dfd.loc[startDatetime:endDatetime]['Close'],3)
+                       
 
-
-                        
+                        for d in range(len(dfd_Close_Check)) :
+                                dfdSnapClosePrice = dfd_Close_Check[d]
                                 
-                        costSnap.append(round(((snapClosePrice - buyPrice) / (snapClosePrice) *(100)) , 3))
-                        
-
-
-                        sRule1  = (max(costSnap) > 7.0)  and  ((max(costSnap)-costSnap[-1]) > 1.5)
-                        sRule2  = True if (costSnap[-1] > 0 and  ((max(costSnap)-costSnap[-1]) > 3.5)) else False
-                        sRule4  = (costSnap[-1]) < -5.0
-                        
-                        sRule5  = df['Close'][i] > df['SMA_2'][i] and df['SMA_2'][i-1] < df['SMA_2'][i]
-                        sRule6  = ( df['SMA_2'][i-2] > df['SMA_2'][i-1] and df['SMA_2'][i-1] > df['SMA_2'][i]  )
-                        sRule7  = df['RSI'][i] > 70
-                        sRule8  = df['SMA_1'][i-1] > df['SMA_1'][i]
-                        sRule9  = df['SMA_2'][i-1] < df['Close'][i-1]
-                        sRule10 = df['SMA_2'][i-2] > df['SMA_2'][i-1] > df['SMA_2'][i]
-                        sRule11 = df['SMA_2'][i]   > df['Close'][i]
-                        sRule12 = df['SMA_1'][i]   > df['Close'][i]
-
-                        # sRule111 = df['SMA_2'][i]  > dfd['Close'][d]
-                        # sRule122 = df['SMA_1'][i]  > dfd['Close'][d]
-
-
-                        if (sellExeFlag)  or  (sellFlag and (sRule4 or sRule9))  :
-
-                                sellExeFlag = True
-
-                                if sellExeFlag and (sRule4 or (sRule10 and sRule11 and sRule12))   :
-
                                 
 
-                                        df['transAction'][i]   = "Sell"
-                                        df['PriceAction'][i]   = df['Close'][i]
-                                        lastTransAction        = "Sell"
+                                costSnap.append(round(((dfdSnapClosePrice - buyPrice) / (dfdSnapClosePrice) *(100)) , 4))
 
-                                        
-                                        sellCounter  +=1
-                                        tradeCounter +=1
-                                        buyflag  = True
-                                        sellFlag = False
-                                        sellExeFlag = False
-                                        costSnap = []
+
+                                # sRule1  = (max(costSnap) > 7.0)  and  ((max(costSnap)-costSnap[-1]) > 1.5)
+                                # sRule2  = True if (costSnap[-1] > 0 and  ((max(costSnap)-costSnap[-1]) > 3.5)) else False
+
+                                sRule4  = (costSnap[-1]) < -5.0
+                                
+                                # sRule5  = df['Close'][i] > df['SMA_2'][i] and df['SMA_2'][i-1] < df['SMA_2'][i]
+                                # sRule6  = ( df['SMA_2'][i-2] > df['SMA_2'][i-1] and df['SMA_2'][i-1] > df['SMA_2'][i]  )
+                                # sRule7  = df['RSI'][i] > 70
+                                # sRule8  = df['SMA_1'][i-1] > df['SMA_1'][i]
+
+                                sRule9  = df['SMA_2'][i-1] < dfd_Close_Check[d-1]
+                                sRule10 = df['SMA_2'][i-2] > df['SMA_2'][i-1] > df['SMA_2'][i]
+                                sRule11 = df['SMA_2'][i]   > dfd_Close_Check[d]
+                                sRule12 = df['SMA_1'][i]   > df['Close'][i]                   #dfd_Close_Check[d]
+                                sRule13 = df['RSI'][i] > 30
+
+                                # sRule111 = df['SMA_2'][i]  > dfd['Close'][d]
+                                # sRule122 = df['SMA_1'][i]  > dfd['Close'][d]
+
+
+                                if (sellExeFlag)  or  (sellFlag and (sRule4 or sRule9) and sRule13)  :
+
+                                        sellExeFlag = True
+
+                                        if sellExeFlag and (sRule4 or (sRule10 and sRule11 and sRule12) )   :
+
+                                                if df['RSI'][i] < 32 : 
+                                                        sellExeFlag = False
+                                                        continue
+
+
+                                                df['transAction'][i]   = "Sell"
+                                                df['PriceAction'][i]   = df['Close'][i]
+                                                lastTransAction        = "Sell"
+
+                                                
+                                                sellCounter  +=1
+                                                tradeCounter +=1
+                                                buyflag  = True
+                                                sellFlag = False
+                                                sellExeFlag = False
+                                                costSnap = []
 
         return buyCounter, sellCounter, tradeCounter
 
