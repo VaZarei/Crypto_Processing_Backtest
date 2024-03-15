@@ -1,20 +1,15 @@
 import numpy as np
 import pandas as pd
+from Fetch_YF_Functons import fetch_Data_backtest
+from configVar import main_Var
 
 
-def distanceF(ser1, ser2, df) :
-        
-        ser3 = ser1.copy()
-        for t in range(len(ser1)):
-                        ser3.iloc[t] = 'nan'
-                        if not(np.isnan(ser2.iloc[t])) :
 
 
-                                percent = (ser1.iloc[t] - ser2.iloc[t])/ser1.iloc[t] * 100
-                                ser3.iloc[t] = float(round(percent, 3))
-        return  ser3
-                                
-                        
+
+
+
+          
 
 def bRsiF(i, df):
    
@@ -58,6 +53,19 @@ def bRsiF(i, df):
         
 
 
+def distanceF(ser1, ser2, df) :
+        
+        ser3 = ser1.copy()
+        for t in range(len(ser1)):
+                        ser3.iloc[t] = 'nan'
+                        if not(np.isnan(ser2.iloc[t])) :
+
+
+                                percent = (ser1.iloc[t] - ser2.iloc[t])/ser1.iloc[t] * 100
+                                ser3.iloc[t] = float(round(percent, 3))
+        return  ser3
+                                
+              
 
 
 def traDisF(df) :
@@ -72,6 +80,13 @@ def traDisF(df) :
         sellCounter  = 0
         tradeCounter = 0
 
+        dict_Detail_Data = data_backtest_dict = fetch_Data_backtest(strTicker=main_Var['s_ticker'], strStart_Date=main_Var['start_Date'], strEnd_Date=main_Var['end_Date'], Interval = main_Var['dfd_interval'])
+        # dfd = dict_Detail_Data[main_Var['dfd_interval'][0]]
+        
+        dfd= dict_Detail_Data[main_Var['dfd_interval'][0]][0]
+        print(dfd.head(10))
+
+        # print(type(dfd1), dfd1)
 
         for i in range(len(df)) :
                 
@@ -120,6 +135,19 @@ def traDisF(df) :
                 
                 if lastTransAction == "Buy" :
 
+                        startDatetime = df.index[i]
+                        if i != len(df)-1 :
+                                endDatetime   = df.index[i+1]
+
+                        
+                        # print(startDatetime, endDatetime )
+                
+                        dfd_Check = dfd.loc[startDatetime:endDatetime]
+                        print(dfd_Check)
+
+
+                        
+                                
                         costSnap.append(round(((snapClosePrice - buyPrice) / (snapClosePrice) *(100)) , 3))
                         
 
@@ -137,13 +165,15 @@ def traDisF(df) :
                         sRule11 = df['SMA_2'][i]   > df['Close'][i]
                         sRule12 = df['SMA_1'][i]   > df['Close'][i]
 
+                        # sRule111 = df['SMA_2'][i]  > dfd['Close'][d]
+                        # sRule122 = df['SMA_1'][i]  > dfd['Close'][d]
 
 
                         if (sellExeFlag)  or  (sellFlag and (sRule4 or sRule9))  :
 
                                 sellExeFlag = True
 
-                                if sellExeFlag and (sRule4 or (sRule10 and sRule11 and sRule12))  :
+                                if sellExeFlag and (sRule4 or (sRule10 and sRule11 and sRule12))   :
 
                                 
 

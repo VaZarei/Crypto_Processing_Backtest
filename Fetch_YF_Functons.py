@@ -1,3 +1,4 @@
+import pandas as pd
 import yfinance as yf
 import datetime
 import math 
@@ -147,6 +148,7 @@ def fetch_Data_backtest(strTicker, strStart_Date, strEnd_Date, Interval) :
             
                 delta = interval_from_Now - 59
                 strStart_Date = str((datetime.strptime(strStart_Date, '%Y-%m-%d') + timedelta(days=delta)).date())
+                strEnd_Date   = datetime.now()
 
                 print("\nStart_Date        : ", strStart_Date)
                 print("End_Date          : ", strEnd_Date)
@@ -239,6 +241,26 @@ def data_process_backtest (intervalA ,data_online : dict, ticker) :
     #print(data_process_dict)
 
     return data_process_dict
+
+
+
+def extractDataBetween (ticker_symbol,startDatetime,endDatetime,interv):
+
+    """
+    A function For extract prices between a specific Time
+    startDatetime,endDatetime = data.index[2],data.index[3] 
+    print(startDatetime,endDatetime)
+    2024-02-01 02:00:00 2024-02-01 03:00:00
+    """
+
+    print(startDatetime,endDatetime)
+    start_sp_date = pd.to_datetime(startDatetime)
+    end_sp_date = pd.to_datetime(endDatetime)
+    dfd = yf.download(ticker_symbol, start=start_sp_date, end=end_sp_date, interval=interv, actions= False, threads=False)
+    return dfd
+
+
+
 
           
 

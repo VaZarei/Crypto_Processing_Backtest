@@ -3,6 +3,7 @@
 from zeroKey import *
 from backDisAlgo import *
 
+
 import sqlalchemy
 import pandas as pd
 import numpy as np
@@ -16,6 +17,7 @@ import math
 from sqlalchemy import create_engine, text
 from Fetch_YF_Functons import *
 from backAl import *
+from configVar import main_Var
 from datetime import datetime
 
 from sklearn.model_selection import train_test_split
@@ -42,23 +44,11 @@ import mplcursors
 subprocess.call([r'Freeze.bat'])
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------
 
-ticker       =  "ada-usd"  # lower case
-start_Date   =  "2024-01-01"  #%Y/%m/%d 
-
-# end_Date     =  "2024-12-29"
-end_Date     =  datetime.now()
-intervalA     =  ["15m"]  # ["1m", "2m", "5m", "15m", "30m", "60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"] 
-#intervalA    =  ["1m", "2m", "5m", "15m", "30m", "60m", "90m",  "1d", "5d", "1wk", "1mo", "3mo"] 
-intMaxLen = 14
-rsi_period = 7
 
 
-intMoney = 1000
-floatFee = 0.005
 
 # ------------------------------------------------ --------------------------------------------- ------------------------------------------- ---------------------------    
-backTestInput = "yes"  # " no"
-onlineFire    = "no"
+
            
 
 
@@ -76,18 +66,20 @@ mydb = mysql.connector.connect(
 # ---------------------------------------------- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>     
 
 
-if backTestInput == "yes" :
+if main_Var['backTestInput'] == "yes" :
        
     
-        data_backtest_dict = fetch_Data_backtest(strTicker=ticker, strStart_Date=start_Date, strEnd_Date=end_Date, Interval = intervalA)
+        data_backtest_dict = fetch_Data_backtest(strTicker=main_Var['s_ticker'], strStart_Date=main_Var['start_Date'], strEnd_Date=main_Var['end_Date'], Interval = main_Var['intervalA'])
+        
 
       
 
-        for index , interval in enumerate(intervalA) :
+        for index , interval in enumerate(main_Var['intervalA']) :
                 
                 globals()[f"i_{interval}"] = data_backtest_dict[f"{interval}"][0]
                 df = data_backtest_dict[f"{interval}"][0]
                 df1 = df
+                
                 df.drop(columns=['Open', 'High', 'Low', 'Adj Close', 'Volume'], axis=1 , inplace=True)
                 
                 
@@ -115,8 +107,8 @@ if backTestInput == "yes" :
                 df['RSI'] = round(talib.RSI((globals()[f"i_{interval}"]['Close']), 20) , 3)  
                 df['rsiSMA'] = talib.EMA(df['RSI'], 10)
 
-                df['SMA_1'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 7)
-                df['SMA_2'] = round(talib.SMA((globals()[f"i_{interval}"]['Close']), 50),4)
+                df['SMA_1'] = talib.SMA((globals()[f"i_{interval}"]['Close']), 15)
+                df['SMA_2'] = round(talib.SMA((globals()[f"i_{interval}"]['Close']), 30),4)
                 
                
                 df['dSMA_1'] = distanceF(df['Close'], df['SMA_1'], df)
@@ -135,7 +127,7 @@ if backTestInput == "yes" :
                 
                 
                 buyCounter, sellCounter, tradeCounter = traDisF(df)
-                costF(df, intMoney, floatFee)
+                costF(df, main_Var['intMoney'], main_Var['floatFee'])
                 
              
 
@@ -231,14 +223,14 @@ if backTestInput == "yes" :
 
 # ---------------------------------------------- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>     
 
-if onlineFire == "yes" :         
+if main_Var['onlineFire'] == "yes" :         
     
 
 
 
         #intervalA = ["5m", "15m"]
 
-        data_online = updateData(intervalA, ticker, start_Date)
+        data_online = updateData(main_Var.intervalA, main_Var.ticker, main_Var.start_Date)
  
 
 
